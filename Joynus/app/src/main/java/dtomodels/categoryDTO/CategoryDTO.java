@@ -4,22 +4,22 @@ package dtomodels.categoryDTO;
 
 public class CategoryDTO
 {
-    public long Id;
-    public String Title;
+    public long id;
+    public String title;
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 }

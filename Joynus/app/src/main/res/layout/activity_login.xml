@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/askEmailText"
+        android:layout_width="170dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="37dp"
+        android:layout_marginStart="37dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:minHeight="181dp"
+        android:text="@string/login_email"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/identifyText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/askPasswordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/login_password"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="77dp"
+        android:layout_below="@+id/askEmailText"
+        android:layout_alignLeft="@+id/askEmailText"
+        android:layout_alignStart="@+id/askEmailText"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp" />
+
+    <TextView
+        android:id="@+id/identifyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/login_identify"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:layout_marginTop="39dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="49dp"
+        android:layout_marginEnd="49dp" />
+
+</RelativeLayout>

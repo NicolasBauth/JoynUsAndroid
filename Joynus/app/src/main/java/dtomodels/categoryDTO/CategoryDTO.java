@@ -4,8 +4,8 @@ package dtomodels.categoryDTO;
 
 public class CategoryDTO
 {
-    public long id;
-    public String title;
+    private long id;
+    private String title;
 
     public long getId() {
         return id;

@@ -3,15 +3,28 @@ package dtomodels.userDTO;
 
 public class UserCredentialsDTO
 {
-    private String userName;
+    private String username;
     private String password;
+    private String grant_type;
 
-    public String getUserName() {
-        return userName;
+    public UserCredentialsDTO()
+    {
+        grant_type="password";
+    }
+    public String getGrant_type() {
+        return grant_type;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setGrant_type(String grant_type) {
+        this.grant_type = grant_type;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

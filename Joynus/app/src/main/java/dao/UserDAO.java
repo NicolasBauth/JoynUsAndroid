@@ -4,15 +4,24 @@ package dao;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import dtomodels.userDTO.TokenPackage;
 import dtomodels.userDTO.UserCredentialsDTO;
 import model.AuthenticatedUser;
 import utility.ConnectionStringsManager;
 import utility.JsonParser;
+import utility.ResponseCodeChecker;
 
 public class UserDAO
 {
@@ -26,7 +35,7 @@ public class UserDAO
         new AuthenticateUser().execute(usercredentials);
         return null;
     }
-    private class AuthenticateUser extends AsyncTask<UserCredentialsDTO,Void,Integer>
+    private class AuthenticateUser extends AsyncTask<UserCredentialsDTO,Void,TokenPackage>
     {
         private Integer responseCode;
 
@@ -34,7 +43,7 @@ public class UserDAO
         {
             responseCode = 0;
         }
-        protected Integer doInBackground(UserCredentialsDTO... userCredentials)
+        protected TokenPackage doInBackground(UserCredentialsDTO... userCredentials)
         {
 
             try
@@ -59,19 +68,31 @@ public class UserDAO
                 responseCode = connection.getResponseCode();
                 writer.close();
                 outputStream.close();
-                connection.disconnect();
+                if(!ResponseCodeChecker.checkWhetherTaskSucceeded(responseCode))
+                {
+                    connection.disconnect();
+                    return null;
+                }
+                String jsonResponseString = JsonParser.jsonStringFromConnection(connection);
+                JSONObject jsonTokenPackage = new JSONObject(jsonResponseString);
+                Gson object = new GsonBuilder().create();
+                TokenPackage parsedTokenPackage;
+
 
             }
             catch(Exception e)
             {
                 Log.i("UserDAOTag","L'exception suivante a été rencontrée dans authenticateUser:  "+e.getMessage());
+                return null;
+            }
+
+        }
+        protected void onPostExecute(TokenPackage response)
+        {
+            if(response != null)
+            {
 
             }
-            return responseCode;
-        }
-        protected void onPostExecute(Integer responseCode)
-        {
-            Log.i("UserDAOTag","L'authentification de l'utilisateur est terminée. le code de réponse est "+responseCode);
         }
     }
 }

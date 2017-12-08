@@ -1,6 +1,7 @@
 package dao;
 
 
+import android.media.session.MediaSession;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -18,7 +19,9 @@ import java.net.URL;
 
 import dtomodels.userDTO.TokenPackage;
 import dtomodels.userDTO.UserCredentialsDTO;
+import dtomodels.userDTO.UserProfileDTO;
 import model.AuthenticatedUser;
+import taskmodels.AuthenticateUserPackage;
 import utility.ConnectionStringsManager;
 import utility.JsonParser;
 import utility.ResponseCodeChecker;
@@ -30,12 +33,12 @@ public class UserDAO
     {
         manager = new ConnectionStringsManager();
     }
-    public AuthenticatedUser authenticateUser(UserCredentialsDTO usercredentials)
+    public AuthenticatedUser authenticateUser(AuthenticateUserPackage packageToFill)
     {
-        new AuthenticateUser().execute(usercredentials);
+        new AuthenticateUser().execute(packageToFill);
         return null;
     }
-    private class AuthenticateUser extends AsyncTask<UserCredentialsDTO,Void,TokenPackage>
+    private class AuthenticateUser extends AsyncTask<AuthenticateUserPackage,Void,AuthenticateUserPackage>
     {
         private Integer responseCode;
 
@@ -43,11 +46,12 @@ public class UserDAO
         {
             responseCode = 0;
         }
-        protected TokenPackage doInBackground(UserCredentialsDTO... userCredentials)
+        protected AuthenticateUserPackage doInBackground(AuthenticateUserPackage... authenticateUserPackage)
         {
 
             try
             {
+
                 URL url = new URL(manager.getTokenConnectionString());
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
@@ -60,39 +64,80 @@ public class UserDAO
                 connection.connect();
                 String urlEncodedStringToSend ="grant_type=password&";
                 urlEncodedStringToSend +="username=";
-                urlEncodedStringToSend +=userCredentials[0].getUsername();
+                urlEncodedStringToSend +=authenticateUserPackage[0].getUserCredentials().getUsername();
                 urlEncodedStringToSend +="&password=";
-                urlEncodedStringToSend +=userCredentials[0].getPassword();
+                urlEncodedStringToSend +=authenticateUserPackage[0].getUserCredentials().getPassword();
                 writer.write(urlEncodedStringToSend);
                 writer.flush();
                 responseCode = connection.getResponseCode();
                 writer.close();
                 outputStream.close();
+                authenticateUserPackage[0].setResponseCode(responseCode);
                 if(!ResponseCodeChecker.checkWhetherTaskSucceeded(responseCode))
                 {
                     connection.disconnect();
-                    return null;
+                    return authenticateUserPackage[0];
                 }
                 String jsonResponseString = JsonParser.jsonStringFromConnection(connection);
-                JSONObject jsonTokenPackage = new JSONObject(jsonResponseString);
-                Gson object = new GsonBuilder().create();
-                TokenPackage parsedTokenPackage;
-
-
+                connection.disconnect();
+                TokenPackage tokenPackageResult = new TokenPackage();
+                tokenPackageResult = (TokenPackage) JsonParser.getJavaObjectFromJsonString(jsonResponseString,tokenPackageResult);
+                authenticateUserPackage[0].getUserResponse().setAccessToken(tokenPackageResult.getAccess_token());
+                authenticateUserPackage[0].getUserResponse().setUsername(tokenPackageResult.getUserName());
+                Log.i("UserDAOTag","authenticateUser.doInBackground s'est terminé sans problème");
+                return authenticateUserPackage[0];
             }
             catch(Exception e)
             {
                 Log.i("UserDAOTag","L'exception suivante a été rencontrée dans authenticateUser:  "+e.getMessage());
-                return null;
+                authenticateUserPackage[0].setResponseCode(0);
+                return authenticateUserPackage[0];
+            }
+
+
+        }
+        protected void onPostExecute(AuthenticateUserPackage response)
+        {
+            if(ResponseCodeChecker.checkWhetherTaskSucceeded(response.getResponseCode()))
+            {
+                new LoadProfile().execute(response);
             }
 
         }
-        protected void onPostExecute(TokenPackage response)
+    }
+    private class LoadProfile extends AsyncTask<AuthenticateUserPackage,Void,AuthenticateUserPackage>
+    {
+        protected AuthenticateUserPackage doInBackground(AuthenticateUserPackage... packageToFill)
         {
-            if(response != null)
+            try
             {
+                URL url = new URL(manager.getApiUserProfilesConnectionString()+"/UserProfileByUsername?username="+packageToFill[0].getUserResponse().getUsername());
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Content-type","application/json");
+                connection.setRequestProperty("Authorization","Bearer "+packageToFill[0].getUserResponse().getAccessToken());
+                connection.setDoOutput(true);
+                packageToFill[0].setResponseCode(connection.getResponseCode());
+                if(!ResponseCodeChecker.checkWhetherTaskSucceeded(packageToFill[0].getResponseCode()))
+                {
+                    connection.disconnect();
+                    return packageToFill[0];
+                }
+                String jsonResponseString = JsonParser.jsonStringFromConnection(connection);
+                connection.disconnect();
+                UserProfileDTO responseDTO;
 
+                return packageToFill[0];
             }
+            catch(Exception e)
+            {
+                packageToFill[0].setResponseCode(0);
+                return packageToFill[0];
+            }
+        }
+        protected void onPostExecute(AuthenticateUserPackage response)
+        {
+
         }
     }
 }

@@ -29,10 +29,28 @@ public class JsonParser
             }
             reader.close();
             connection.disconnect();
+            jsonResponseString = stringBuilder.toString();
+            return jsonResponseString;
         }
         catch(Exception e)
         {
-
+            return null;
+        }
+    }
+    public static Object getJavaObjectFromJsonString(String jsonString, Object objectToFill)
+    {
+        try
+        {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            Gson object = new GsonBuilder().create();
+            Class classOfObject = objectToFill.getClass();
+            objectToFill = object.fromJson(jsonObject.toString(),classOfObject);
+            return objectToFill;
+        }
+        catch(Exception e)
+        {
+            String message = e.getMessage();
+            return null;
         }
     }
 }

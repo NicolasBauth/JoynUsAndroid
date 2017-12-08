@@ -3,6 +3,7 @@ package controller;
 
 import dao.UserDAO;
 import dtomodels.userDTO.UserCredentialsDTO;
+import taskmodels.AuthenticateUserPackage;
 
 public class UserController
 {
@@ -16,6 +17,8 @@ public class UserController
         UserCredentialsDTO userCredentials = new UserCredentialsDTO();
         userCredentials.setUsername(username);
         userCredentials.setPassword(password);
-        userDAO.authenticateUser(userCredentials);
+        AuthenticateUserPackage packageToFill = new AuthenticateUserPackage();
+        packageToFill.setUserCredentials(userCredentials);
+        userDAO.authenticateUser(packageToFill);
     }
 }

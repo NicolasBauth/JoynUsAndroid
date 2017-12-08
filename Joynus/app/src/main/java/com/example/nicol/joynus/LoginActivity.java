@@ -1,7 +1,6 @@
 package com.example.nicol.joynus;
 
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.content.Context;
 
 import controller.UserController;
 
@@ -21,11 +21,13 @@ public class LoginActivity extends AppCompatActivity
     private Intent loginIntent;
     private Intent registerIntent;
     private UserController userController;
+    private static Context contextOfApplication;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        contextOfApplication = getContextOfApplication();
         loginButton = (Button) findViewById(R.id.LoginButton);
         registerButton = (Button) findViewById(R.id.CreateAccountButton);
         usernameEditText = (EditText)findViewById(R.id.LoginEmailInput);
@@ -70,5 +72,9 @@ public class LoginActivity extends AppCompatActivity
             }
         };
         return listener;
+    }
+    public static Context getContextOfApplication()
+    {
+        return contextOfApplication;
     }
 }

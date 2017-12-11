@@ -25,8 +25,7 @@ public class HttpMethodSetups
             connection.setRequestProperty("Content-type", "application/json");
             String token = preferences.getString("token","");
             connection.setRequestProperty("Authorization", "Bearer " +token);
-            connection.setDoOutput(true);
-            connection.connect();
+            connection.setDoInput(true);
             return connection;
         }
         catch(Exception e)
@@ -34,7 +33,43 @@ public class HttpMethodSetups
             return null;
         }
     }
-    public static HttpURLConnection basicPostMethodSetup(String urlToQuery)
+    public static int basicGetMethodSetupAndDataFetching(String urlToQuery, Object modelObject)
+    {
+        try
+        {
+            int responseCode = 0;
+            HttpURLConnection connection = HttpMethodSetups.basicGetMethodSetup(urlToQuery);
+            if(connection == null)
+            {
+                return 0;
+            }
+            connection.connect();
+
+            /*if(!ResponseCodeChecker.checkWhetherTaskSucceeded(responseCode))
+            {
+                connection.disconnect();
+                return responseCode;
+            }*/
+            String jsonResponseString = JsonParser.jsonStringFromConnection(connection);
+            responseCode = connection.getResponseCode();
+            connection.disconnect();
+            if(jsonResponseString == null)
+            {
+                return 0;
+            }
+             modelObject = JsonParser.getJavaObjectFromJsonString(jsonResponseString, modelObject);
+            if(modelObject == null)
+            {
+                return 0;
+            }
+             return responseCode;
+        }
+        catch(Exception e)
+        {
+            return 0;
+        }
+    }
+    public static HttpURLConnection basicPostMethodSetup(String urlToQuery, boolean hasDataToBeRetrieved)
     {
         try
         {
@@ -43,7 +78,7 @@ public class HttpMethodSetups
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-type", "application/json");
             connection.setDoOutput(true);
-            connection.setDoInput(true);
+            connection.setDoInput(hasDataToBeRetrieved);
             connection.connect();
             return connection;
         }
@@ -57,7 +92,7 @@ public class HttpMethodSetups
         try
         {
             Class classOfObject = modelObject.getClass();
-            HttpURLConnection connection = basicPostMethodSetup(urlToQuery);
+            HttpURLConnection connection = basicPostMethodSetup(urlToQuery,hasDataToBeRetrieved);
             if (connection == null)
             {
                 return 0;

@@ -7,7 +7,6 @@ import java.util.Date;
 public class User
 {
     private Date birthdate;
-    private long dbId;
     private String firstname;
     private String lastname;
     private String username;
@@ -20,14 +19,6 @@ public class User
 
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
-    }
-
-    public long getDbId() {
-        return dbId;
-    }
-
-    public void setDbId(long dbId) {
-        this.dbId = dbId;
     }
 
     public String getFirstname() {

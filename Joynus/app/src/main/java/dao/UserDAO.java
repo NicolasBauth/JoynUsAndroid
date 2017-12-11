@@ -1,42 +1,40 @@
 package dao;
 
 
-import android.media.session.MediaSession;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.nicol.joynus.LoginActivity;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import dtomodels.userDTO.TokenPackage;
-import dtomodels.userDTO.UserCredentialsDTO;
 import dtomodels.userDTO.UserProfileDTO;
-import model.AuthenticatedUser;
 import taskmodels.AuthenticateUserPackage;
 import utility.ConnectionStringsManager;
+import utility.HttpMethodSetups;
 import utility.JsonParser;
 import utility.ResponseCodeChecker;
 
 public class UserDAO
 {
     private ConnectionStringsManager manager;
+    private SharedPreferences preferences;
     public UserDAO()
     {
+        preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.getContextOfApplication());
         manager = new ConnectionStringsManager();
+
     }
-    public AuthenticatedUser authenticateUser(AuthenticateUserPackage packageToFill)
+    public AuthenticateUserPackage authenticateUser(AuthenticateUserPackage packageToFill)
     {
         new AuthenticateUser().execute(packageToFill);
-        return null;
+        return packageToFill;
     }
     private class AuthenticateUser extends AsyncTask<AuthenticateUserPackage,Void,AuthenticateUserPackage>
     {
@@ -82,7 +80,9 @@ public class UserDAO
                 connection.disconnect();
                 TokenPackage tokenPackageResult = new TokenPackage();
                 tokenPackageResult = (TokenPackage) JsonParser.getJavaObjectFromJsonString(jsonResponseString,tokenPackageResult);
-                authenticateUserPackage[0].getUserResponse().setAccessToken(tokenPackageResult.getAccess_token());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("token",tokenPackageResult.getAccess_token());
+                editor.apply();
                 authenticateUserPackage[0].getUserResponse().setUsername(tokenPackageResult.getUserName());
                 Log.i("UserDAOTag","authenticateUser.doInBackground s'est terminé sans problème");
                 return authenticateUserPackage[0];
@@ -111,22 +111,11 @@ public class UserDAO
         {
             try
             {
-                URL url = new URL(manager.getApiUserProfilesConnectionString()+"/UserProfileByUsername?username="+packageToFill[0].getUserResponse().getUsername());
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-type","application/json");
-                connection.setRequestProperty("Authorization","Bearer "+packageToFill[0].getUserResponse().getAccessToken());
-                connection.setDoOutput(true);
-                packageToFill[0].setResponseCode(connection.getResponseCode());
-                if(!ResponseCodeChecker.checkWhetherTaskSucceeded(packageToFill[0].getResponseCode()))
-                {
-                    connection.disconnect();
-                    return packageToFill[0];
-                }
-                String jsonResponseString = JsonParser.jsonStringFromConnection(connection);
-                connection.disconnect();
-                UserProfileDTO responseDTO;
+                String urlToQuery = manager.getApiUserProfilesConnectionString()+"/UserProfileByUsername?username="+packageToFill[0].getUserResponse().getUsername();
+                UserProfileDTO modelToFill = new UserProfileDTO();
+                int responseCode = HttpMethodSetups.basicGetMethodSetupAndDataFetching(urlToQuery,modelToFill);
 
+                packageToFill[0].setResponseCode(responseCode);
                 return packageToFill[0];
             }
             catch(Exception e)

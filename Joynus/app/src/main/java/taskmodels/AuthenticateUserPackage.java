@@ -2,17 +2,17 @@ package taskmodels;
 
 
 import dtomodels.userDTO.UserCredentialsDTO;
-import model.AuthenticatedUser;
+import model.User;
 
 public class AuthenticateUserPackage
 {
     private UserCredentialsDTO userCredentials;
-    private AuthenticatedUser userResponse;
+    private User userResponse;
     private int responseCode;
     public AuthenticateUserPackage()
     {
         userCredentials = new UserCredentialsDTO();
-        userResponse = new AuthenticatedUser();
+        userResponse = new User();
     }
     public UserCredentialsDTO getUserCredentials() {
         return userCredentials;
@@ -22,11 +22,11 @@ public class AuthenticateUserPackage
         this.userCredentials = userCredentials;
     }
 
-    public AuthenticatedUser getUserResponse() {
+    public User getUserResponse() {
         return userResponse;
     }
 
-    public void setUserResponse(AuthenticatedUser userResponse) {
+    public void setUserResponse(User userResponse) {
         this.userResponse = userResponse;
     }
 

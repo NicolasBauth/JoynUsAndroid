@@ -1,6 +1,10 @@
 package taskmodels;
 
 
+import android.app.Activity;
+
+import com.example.nicol.joynus.LoginActivity;
+
 import dtomodels.userDTO.UserCredentialsDTO;
 import model.User;
 
@@ -9,6 +13,16 @@ public class AuthenticateUserPackage
     private UserCredentialsDTO userCredentials;
     private User userResponse;
     private int responseCode;
+    private LoginActivity sender;
+
+    public LoginActivity getSender() {
+        return sender;
+    }
+
+    public void setSender(LoginActivity sender) {
+        this.sender = sender;
+    }
+
     public AuthenticateUserPackage()
     {
         userCredentials = new UserCredentialsDTO();

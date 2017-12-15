@@ -6,7 +6,7 @@ import model.User;
 
 public class UserService
 {
-    public void UserFromUserProfileDTO(UserProfileDTO profileToParse, User userToFill)
+    public static void UserFromUserProfileDTO(UserProfileDTO profileToParse, User userToFill)
     {
         userToFill.setBirthdate(profileToParse.getBirthdate());
         userToFill.setFirstname(profileToParse.getFirstName());

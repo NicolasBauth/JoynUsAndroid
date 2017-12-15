@@ -6,40 +6,40 @@ import java.util.Date;
 
 public class UserProfileDTO
 {
-    private String firstName;
-    private String lastName;
-    private Date birthdate;
-    private ArrayList<String> interests;
+    private String FirstName;
+    private String LastName;
+    private Date BirthDate;
+    private ArrayList<String> Interests;
 
     public String getFirstName() {
-        return firstName;
+        return FirstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.FirstName = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return LastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.LastName = lastName;
     }
 
     public Date getBirthdate() {
-        return birthdate;
+        return BirthDate;
     }
 
     public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+        this.BirthDate = birthdate;
     }
 
     public ArrayList<String> getInterests() {
-        return interests;
+        return Interests;
     }
 
     public void setInterests(ArrayList<String> interests) {
-        this.interests = interests;
+        this.Interests = interests;
     }
 }

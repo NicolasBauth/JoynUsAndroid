@@ -28,7 +28,7 @@ android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/RegisterFirstNameInput"
                 android:inputType="text"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -53,7 +53,7 @@ android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/RegisterLastNameInput"
                 android:inputType="text"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -72,17 +72,16 @@ android:layout_height="wrap_content">
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:gravity="center"
+                android:gravity="start"
                 android:textSize="20sp"
                 />
             <EditText
-                android:id="@+id/RegisterBirthDateInput"
-                android:inputType="date"
-                android:layout_width="wrap_content"
+                android:id="@+id/RegisterEditDate"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                />
+                android:inputType="date"
+                android:focusable="false" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/RegisterEmailField"
@@ -102,7 +101,7 @@ android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/RegisterEmailInput"
                 android:inputType="textEmailAddress"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -127,11 +126,12 @@ android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/RegisterPasswordInput"
                 android:inputType="textPassword"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 />
+
 
         </LinearLayout>
         <LinearLayout
@@ -152,7 +152,7 @@ android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/RegisterConfirmPasswordInput"
                 android:inputType="textPassword"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"

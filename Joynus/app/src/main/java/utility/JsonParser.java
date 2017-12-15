@@ -42,10 +42,11 @@ public class JsonParser
         try
         {
             JSONObject jsonObject = new JSONObject(jsonString);
-            Gson object = new GsonBuilder().create();
+            Gson object = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
             Class classOfObject = objectToFill.getClass();
-            objectToFill = object.fromJson(jsonObject.toString(),classOfObject);
-            return objectToFill;
+            Object objectToReturn;
+            objectToReturn = object.fromJson(jsonObject.toString(),classOfObject);
+            return objectToReturn;
         }
         catch(Exception e)
         {

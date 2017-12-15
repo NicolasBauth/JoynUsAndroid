@@ -12,6 +12,16 @@ public class RegisterFormDTO
     private Date birthDate;
     private String password;
 
+    public RegisterFormDTO(String firstName, String lastName, String confirmedPassword, String email, Date birthDate, String password)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.confirmedPassword = confirmedPassword;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.password = password;
+    }
+
     public String getFirstName() {
         return firstName;
     }

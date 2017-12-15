@@ -12,6 +12,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import taskmodels.HttpReturnPackage;
+
 public class HttpMethodSetups
 {
     public static HttpURLConnection basicGetMethodSetup(String urlToQuery)
@@ -33,40 +35,40 @@ public class HttpMethodSetups
             return null;
         }
     }
-    public static int basicGetMethodSetupAndDataFetching(String urlToQuery, Object modelObject)
+    public static HttpReturnPackage basicGetMethodSetupAndDataFetching(String urlToQuery, Object modelObject)
     {
+        HttpReturnPackage packageToReturn = new HttpReturnPackage();
         try
         {
-            int responseCode = 0;
+            packageToReturn.setRequestResponseCode(0);
             HttpURLConnection connection = HttpMethodSetups.basicGetMethodSetup(urlToQuery);
             if(connection == null)
             {
-                return 0;
+                return packageToReturn;
             }
             connection.connect();
-
-            /*if(!ResponseCodeChecker.checkWhetherTaskSucceeded(responseCode))
-            {
-                connection.disconnect();
-                return responseCode;
-            }*/
             String jsonResponseString = JsonParser.jsonStringFromConnection(connection);
-            responseCode = connection.getResponseCode();
+            packageToReturn.setRequestResponseCode(connection.getResponseCode());
             connection.disconnect();
             if(jsonResponseString == null)
             {
-                return 0;
+                packageToReturn.setRequestResponseCode(0);
+                return packageToReturn;
             }
-             modelObject = JsonParser.getJavaObjectFromJsonString(jsonResponseString, modelObject);
-            if(modelObject == null)
+            Object objectResult;
+            objectResult = JsonParser.getJavaObjectFromJsonString(jsonResponseString, modelObject);
+            if(objectResult == null)
             {
-                return 0;
+                packageToReturn.setRequestResponseCode(0);
+                return packageToReturn;
             }
-             return responseCode;
+            packageToReturn.setObjectResult(objectResult);
+            return packageToReturn;
         }
         catch(Exception e)
         {
-            return 0;
+            packageToReturn.setRequestResponseCode(0);
+            return packageToReturn;
         }
     }
     public static HttpURLConnection basicPostMethodSetup(String urlToQuery, boolean hasDataToBeRetrieved)
@@ -87,15 +89,17 @@ public class HttpMethodSetups
             return null;
         }
     }
-    public static int postMethodSetupAndPosting(String urlToQuery,String jsonToPost,Object modelObject,boolean hasDataToBeRetrieved)
+    public static HttpReturnPackage postMethodSetupAndPosting(String urlToQuery,String jsonToPost,Object modelObject,boolean hasDataToBeRetrieved)
     {
+        HttpReturnPackage packageToReturn = new HttpReturnPackage();
         try
         {
             Class classOfObject = modelObject.getClass();
             HttpURLConnection connection = basicPostMethodSetup(urlToQuery,hasDataToBeRetrieved);
             if (connection == null)
             {
-                return 0;
+                packageToReturn.setRequestResponseCode(0);
+                return packageToReturn;
             }
             OutputStream outputStream = connection.getOutputStream();
             OutputStreamWriter writer = new OutputStreamWriter(outputStream);
@@ -108,13 +112,21 @@ public class HttpMethodSetups
             {
                 String jsonResponseString = JsonParser.jsonStringFromConnection(connection);
                 modelObject = JsonParser.getJavaObjectFromJsonString(jsonResponseString,classOfObject);
+                if(modelObject == null)
+                {
+                    packageToReturn.setRequestResponseCode(0);
+                    return packageToReturn;
+                }
+                packageToReturn.setObjectResult(modelObject);
             }
             connection.disconnect();
-            return responseCode;
+            packageToReturn.setRequestResponseCode(responseCode);
+            return packageToReturn;
         }
         catch(Exception e)
         {
-            return 0;
+            packageToReturn.setRequestResponseCode(0);
+            return packageToReturn;
         }
     }
 }

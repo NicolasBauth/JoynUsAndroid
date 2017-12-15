@@ -1,6 +1,11 @@
 package utility;
 
 
+import android.content.Context;
+import android.content.res.Resources;
+
+import com.example.nicol.joynus.LoginActivity;
+import com.example.nicol.joynus.R;
 
 public class ResponseCodeChecker
 {
@@ -14,14 +19,17 @@ public class ResponseCodeChecker
     }
     public static String getResponseCodeErrorMessage(int responseCode)
     {
+        Context applicationContext = LoginActivity.getContextOfApplication();
         switch(responseCode)
         {
+            case 400:
+                return applicationContext.getString(R.string.error_username_or_password);
             case 401:
-                return "session perdue ou mauvaise combinaison de login/mot de passe. Veuillez réessayer de vous connecter.";
+                return applicationContext.getString(R.string.error_authentication);
             case 404:
-                return "Il semble que vous ne soyez pas connecté à internet. Veuillez vérifier votre connexion à internet";
+                return applicationContext.getString(R.string.error_no_internet);
             default:
-                return "Une erreur de transmission s'est produite. Essayez de relancer l'application.";
+                return applicationContext.getString(R.string.error_unidentified);
         }
     }
 }

@@ -5,6 +5,7 @@
     <string name="login_identify">Identifiez-vous!</string>
     <string name="login_create_account">Créer un compte</string>
     <string name="login_go">Joy\'n Us!</string>
+    <string name="login_username_and_password_missing">Veuillez renseigner un login et un mot de passe!</string>
     <string name="create_account_first_name">Prénom</string>
     <string name="create_account_last_name">Nom</string>
     <string name="create_account_birth_date">Date de naissance</string>
@@ -12,5 +13,34 @@
     <string name="create_account_password">Mot de passe</string>
     <string name="create_account_confirm_password">Confirmez le mot de passe</string>
     <string name="go_back">Retour</string>
-
+    <string name="select_date">Sélectionnez une date</string>
+    <string name="register_error_first_name_length">Erreur : la longueur de votre prénom doit se situer entre 2 et 100 caractères.</string>
+    <string name="register_error_first_name_required">Erreur : Votre Prénom est requis</string>
+    <string name="register_error_first_name_composition">Erreur: votre prénom ne peut être composé que de lettres, d\'espaces et de traits d'union.</string>
+    <string name="register_error_first_name_two_letters">Erreur: votre prénom doit contenir deux lettres au minimum</string>
+    <string name="register_error_last_name_required">Erreur : Votre nom de famille est requis</string>
+    <string name="register_error_last_name_length">Erreur : la longueur de votre nom de famille doit se situer entre 2 et 100 caractères.</string>
+    <string name="register_error_last_name_composition">Erreur: votre nom de famille ne peut être composé que de lettres, d\'espaces et de traits d'union.</string>
+    <string name="register_error_last_name_two_letters">Erreur: votre nom de famille doit contenir deux lettres au minimum</string>
+    <string name="register_error_password_required">Erreur : Votre mot de passe est requis</string>
+    <string name="register_error_password_length">Erreur : La longueur de votre mot de passe doit impérativement se situer entre 6 et 100 caractères.</string>
+    <string name="register_error_password_digit">Erreur: votre mot de passe doit contenir au moins un chiffre.</string>
+    <string name="register_error_password_special_character">Erreur: votre mot de passe doit contenir au moins un caractère spécial.</string>
+    <string name="register_error_password_capital_letter">Erreur: votre mot de passe doit contenir au moins une majuscule.</string>
+    <string name="register_error_password_small_letter">Erreur: votre mot de passe doit contenir au moins une minuscule.</string>
+    <string name="register_error_confirm_password_required">Erreur : la confirmation de mot de passe est requise.</string>
+    <string name="register_error_confirm_password_not_same">Erreur : le mot de passe et la confirmation de mot de passe doivent être identiques.</string>
+    <string name="register_error_email_required">Erreur : votre e-mail est requis</string>
+    <string name="register_error_email_not_valid">Erreur : l\'adresse e-mail que vous avez rentrée n\'est pas valide</string>
+    <string name="register_error_birthdate_in_future">Erreur : la date de naissance que vous avez rentrée est dans le futur!</string>
+    <string name="register_error_birthdate_too_young">Erreur : vous devez être agé de 12 ans au minimum pour pouvoir utiliser l\'application</string>
+    <string name="register_succeeded">Inscription réussie!</string>
+    <string name="register_processing">Envoi du formulaire, veuillez patienter</string>
+    <string name="register_user_already_existing">Il semble que l\' e-mail que vous avez rentré soit déjà utilisé par un utilisateur de l'application.</string>
+    <string name="error_no_internet">"Il semble que vous ne soyez pas connecté à internet. Veuillez vérifier votre connexion à internet"</string>
+    <string name="error_authentication">Mauvaise combinaison de login/mot de passe ou session perdue. Veuillez réessayer de vous connecter.</string>
+    <string name="error_unidentified">Une erreur de transmission s\'est produite. Essayez de relancer l'application.</string>
+    <string name="authentication_failed">Echec de l\'authentification.</string>
+    <string name="error_username_or_password">Mauvaise combinaison utilisateur/mot de passe!</string>
+    <string name="register_task_failed">Echec de l\'inscription!</string>
 </resources>

@@ -1,11 +1,13 @@
 package model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-public class User
-{
+public class User implements Parcelable {
     private Date birthdate;
     private String firstname;
     private String lastname;
@@ -70,4 +72,55 @@ public class User
         }
         return age;
     }
+    public User()
+    {
+
+    }
+    protected User(Parcel in) {
+        long tmpBirthdate = in.readLong();
+        birthdate = tmpBirthdate != -1 ? new Date(tmpBirthdate) : null;
+        firstname = in.readString();
+        lastname = in.readString();
+        username = in.readString();
+        profileImagePath = in.readString();
+        if (in.readByte() == 0x01) {
+            Interests = new ArrayList<Category>();
+            in.readList(Interests, Category.class.getClassLoader());
+        } else {
+            Interests = null;
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(birthdate != null ? birthdate.getTime() : -1L);
+        dest.writeString(firstname);
+        dest.writeString(lastname);
+        dest.writeString(username);
+        dest.writeString(profileImagePath);
+        if (Interests == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(Interests);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

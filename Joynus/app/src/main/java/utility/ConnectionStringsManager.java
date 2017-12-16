@@ -27,4 +27,8 @@ public class ConnectionStringsManager
     {
         return getApiGeneralConnectionString()+"/api/Categories";
     }
+    public String getAccountConnectionString()
+    {
+        return getApiGeneralConnectionString()+"/api/Account";
+    }
 }

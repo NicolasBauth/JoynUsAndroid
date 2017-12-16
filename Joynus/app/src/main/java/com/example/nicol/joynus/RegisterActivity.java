@@ -3,7 +3,6 @@ package com.example.nicol.joynus;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -115,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity
         boolean succeeded = validateRegisterFormData(form);
         if(succeeded)
         {
+            registerButton.setEnabled(false);
             RegisterUserPackage packageToSend = new RegisterUserPackage();
             packageToSend.setFormToSend(form);
             packageToSend.setSender(this);
@@ -131,11 +131,11 @@ public class RegisterActivity extends AppCompatActivity
             {
                if(passwordCheck(form.getPassword()))
                {
-                   if(confirmPasswordCheck(form.getPassword(),form.getConfirmedPassword()))
+                   if(confirmPasswordCheck(form.getPassword(),form.getConfirmPassword()))
                    {
                        if(emailCheck(form.getEmail()))
                        {
-                           if(birthdateCheck(form.getBirthDate()))
+                           if(birthdateCheck(form.getBirthdate()))
                            {
                                message = getString(R.string.register_processing);
                                ViewStaticMethods.displayMessage(message);
@@ -346,22 +346,21 @@ public class RegisterActivity extends AppCompatActivity
         }
         return true;
     }
-    public void notifyRegisterTaskDone(RegisterUserPackage receivedPackage)
+    public void notifyRegisterTaskDone(int responseCode)
     {
-        if(!ResponseCodeChecker.checkWhetherTaskSucceeded(receivedPackage.getResponseCode()))
-        {
-            ViewStaticMethods.displayMessage(ResponseCodeChecker.getResponseCodeErrorMessage(receivedPackage.getResponseCode()));
-        }
-        else
-        {
-            ViewStaticMethods.displayMessage(getString(R.string.register_succeeded));
-        }
+        ViewStaticMethods.displayMessage(getString(R.string.register_succeeded));
+        finish();
     }
 
     public void notifyRegisterTaskFailed(int responseCode)
     {
-        String message = getString(R.string.authentication_failed);
+        registerButton.setEnabled(true);
+        String message = getString(R.string.register_task_failed);
         message += " : ";
+        if(responseCode == 400)
+        {
+            message += getString(R.string.register_user_already_existing);
+        }
         message += ResponseCodeChecker.getResponseCodeErrorMessage(responseCode);
         ViewStaticMethods.displayMessage(message);
     }

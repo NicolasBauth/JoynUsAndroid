@@ -3,7 +3,6 @@ package controller;
 
 import android.util.Log;
 
-import com.example.nicol.joynus.LoginActivity;
 import com.example.nicol.joynus.ViewStaticMethods;
 
 import java.util.Date;
@@ -111,13 +110,13 @@ public class UserController
             ViewStaticMethods.displayMessage(message);
             return false;
         }
-        if(form.getConfirmedPassword() == null)
+        if(form.getConfirmPassword() == null)
         {
             message = "Erreur : la confirmation de mot de passe est requise.";
             ViewStaticMethods.displayMessage(message);
             return false;
         }
-        if(!form.getConfirmedPassword().equals(form.getPassword()))
+        if(!form.getConfirmPassword().equals(form.getPassword()))
         {
             message = "Erreur : le mot de passe et la confirmation de mot de passe doivent être identiques.";
             ViewStaticMethods.displayMessage(message);
@@ -138,14 +137,14 @@ public class UserController
             return false;
         }
         Date now = new Date();
-        if(now.before(form.getBirthDate()))
+        if(now.before(form.getBirthdate()))
         {
             message = "Erreur : la date de naissance que vous avez rentrée est dans le futur!";
             ViewStaticMethods.displayMessage(message);
             return false;
         }
-        int age = now.getYear() - form.getBirthDate().getYear();
-        if(now.getMonth() < form.getBirthDate().getMonth() || (now.getMonth() == form.getBirthDate().getMonth() && now.getDay() < form.getBirthDate().getDay()))
+        int age = now.getYear() - form.getBirthdate().getYear();
+        if(now.getMonth() < form.getBirthdate().getMonth() || (now.getMonth() == form.getBirthdate().getMonth() && now.getDay() < form.getBirthdate().getDay()))
         {
             age--;
         }

@@ -110,8 +110,18 @@ public class LoginActivity extends AppCompatActivity
     public void notifyAuthenticationFailed(int responseCode)
     {
         loginButton.setEnabled(true);
-        String message = ResponseCodeChecker.getResponseCodeErrorMessage(responseCode);
-        String messageToDisplay = getString(R.string.authentication_failed) +" : "+message;
+        String message;
+        String messageToDisplay;
+        if(responseCode == 400)
+        {
+            message = getString(R.string.authentication_failed) +" : ";
+            messageToDisplay = message + getString(R.string.error_username_or_password);
+        }
+        else
+        {
+            message = ResponseCodeChecker.getResponseCodeErrorMessage(responseCode);
+            messageToDisplay = getString(R.string.authentication_failed) + " : " + message;
+        }
         ViewStaticMethods.displayMessage(messageToDisplay);
     }
 

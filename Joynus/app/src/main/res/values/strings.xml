@@ -43,4 +43,10 @@
     <string name="authentication_failed">Echec de l\'authentification.</string>
     <string name="error_username_or_password">Mauvaise combinaison utilisateur/mot de passe!</string>
     <string name="register_task_failed">Echec de l\'inscription!</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

@@ -22,8 +22,6 @@ public class ResponseCodeChecker
         Context applicationContext = LoginActivity.getContextOfApplication();
         switch(responseCode)
         {
-            case 400:
-                return applicationContext.getString(R.string.error_username_or_password);
             case 401:
                 return applicationContext.getString(R.string.error_authentication);
             case 404:

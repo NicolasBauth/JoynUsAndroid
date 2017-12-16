@@ -5,68 +5,68 @@ import java.util.Date;
 
 public class RegisterFormDTO
 {
-    private String firstName;
-    private String lastName;
-    private String confirmedPassword;
-    private String email;
-    private Date birthDate;
-    private String password;
+    private String FirstName;
+    private String LastName;
+    private String ConfirmPassword;
+    private String Email;
+    private Date Birthdate;
+    private String Password;
 
     public RegisterFormDTO(String firstName, String lastName, String confirmedPassword, String email, Date birthDate, String password)
     {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.confirmedPassword = confirmedPassword;
-        this.email = email;
-        this.birthDate = birthDate;
-        this.password = password;
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.ConfirmPassword = confirmedPassword;
+        this.Email = email;
+        this.Birthdate = birthDate;
+        this.Password = password;
     }
 
     public String getFirstName() {
-        return firstName;
+        return FirstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.FirstName = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return LastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.LastName = lastName;
     }
 
-    public String getConfirmedPassword() {
-        return confirmedPassword;
+    public String getConfirmPassword() {
+        return ConfirmPassword;
     }
 
-    public void setConfirmedPassword(String confirmedPassword) {
-        this.confirmedPassword = confirmedPassword;
+    public void setConfirmPassword(String confirmPassword) {
+        this.ConfirmPassword = confirmPassword;
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.Email = email;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getBirthdate() {
+        return Birthdate;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(Date birthdate) {
+        this.Birthdate = birthdate;
     }
 
     public String getPassword() {
-        return password;
+        return Password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.Password = password;
     }
 }

@@ -71,7 +71,7 @@ public class HttpMethodSetups
             return packageToReturn;
         }
     }
-    public static HttpURLConnection basicPostMethodSetup(String urlToQuery, boolean hasDataToBeRetrieved)
+    public static HttpURLConnection basicPostMethodSetup(String urlToQuery, boolean hasDataToBeRetrieved, boolean requiresAuthorization)
     {
         try
         {
@@ -79,6 +79,12 @@ public class HttpMethodSetups
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-type", "application/json");
+            if(requiresAuthorization)
+            {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.getContextOfApplication());
+                String token = preferences.getString("token","");
+                connection.setRequestProperty("Authorization", "Bearer " +token);
+            }
             connection.setDoOutput(true);
             connection.setDoInput(hasDataToBeRetrieved);
             connection.connect();
@@ -89,13 +95,14 @@ public class HttpMethodSetups
             return null;
         }
     }
-    public static HttpReturnPackage postMethodSetupAndPosting(String urlToQuery,String jsonToPost,Object modelObject,boolean hasDataToBeRetrieved)
+    public static HttpReturnPackage postMethodSetupAndPosting(String urlToQuery,Object modelObject,boolean hasDataToBeRetrieved,boolean requiresAuthorization)
     {
         HttpReturnPackage packageToReturn = new HttpReturnPackage();
         try
         {
+            String jsonToPost = JsonParser.objectToJson(modelObject);
             Class classOfObject = modelObject.getClass();
-            HttpURLConnection connection = basicPostMethodSetup(urlToQuery,hasDataToBeRetrieved);
+            HttpURLConnection connection = basicPostMethodSetup(urlToQuery,hasDataToBeRetrieved,requiresAuthorization);
             if (connection == null)
             {
                 packageToReturn.setRequestResponseCode(0);

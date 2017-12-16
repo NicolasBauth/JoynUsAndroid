@@ -38,6 +38,36 @@ public class UserDAO
     }
     public void registerUser(RegisterUserPackage packageToSend)
     {
+        new RegisterUser().execute(packageToSend);
+    }
+    private class RegisterUser extends AsyncTask<RegisterUserPackage,Void,RegisterUserPackage>
+    {
+        protected RegisterUserPackage doInBackground(RegisterUserPackage... registerUserPackage)
+        {
+            try
+            {
+                String urlToQuery = manager.getAccountConnectionString()+"/Register";
+                HttpReturnPackage postResponse = HttpMethodSetups.postMethodSetupAndPosting(urlToQuery,registerUserPackage[0].getFormToSend(),false,false);
+                registerUserPackage[0].setResponseCode(postResponse.getRequestResponseCode());
+                return registerUserPackage[0];
+            }
+            catch(Exception e)
+            {
+                registerUserPackage[0].setResponseCode(0);
+                return registerUserPackage[0];
+            }
+        }
+        protected void onPostExecute(RegisterUserPackage responsePackage)
+        {
+            if(ResponseCodeChecker.checkWhetherTaskSucceeded(responsePackage.getResponseCode()))
+            {
+                responsePackage.getSender().notifyRegisterTaskDone(responsePackage.getResponseCode());
+            }
+            else
+            {
+                responsePackage.getSender().notifyRegisterTaskFailed(responsePackage.getResponseCode());
+            }
+        }
 
     }
     public void authenticateUser(AuthenticateUserPackage packageToFill)

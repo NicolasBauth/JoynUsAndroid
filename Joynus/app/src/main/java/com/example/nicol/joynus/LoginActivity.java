@@ -109,6 +109,7 @@ public class LoginActivity extends AppCompatActivity
             setCurrentApplicationUser(response.getUserResponse());
             Intent goToMainIntent = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(goToMainIntent);
+            finish();
         }
     }
 

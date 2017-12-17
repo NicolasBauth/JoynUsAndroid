@@ -1,5 +1,6 @@
 package com.example.nicol.joynus;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,12 +11,20 @@ import android.widget.FrameLayout;
 
 public class BaseActivity extends AppCompatActivity {
 
+    private boolean hasToFinishItsParentUponFinishing;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+            super.onCreate(savedInstanceState);
+            setHasToFinishItsParentUponFinishing(false);
     }
-
+    protected void setHasToFinishItsParentUponFinishing(boolean hasToFinishItsParentUponFinishing)
+    {
+        this.hasToFinishItsParentUponFinishing=hasToFinishItsParentUponFinishing;
+    }
+    protected boolean getHasToFinishItsParentUponFinishing()
+    {
+        return hasToFinishItsParentUponFinishing;
+    }
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
@@ -30,20 +39,50 @@ public class BaseActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.goToProfileAction:
                         fullView.closeDrawers();
-                        return true;
+                        if(!(BaseActivity.this instanceof ProfileActivity))
+                        {
+                            navigateToActivityFromHamburgerMenu(ProfileActivity.class);
+                            return true;
+                        }
+                        return false;
 
                     case R.id.goToCreateEventAction:
                         fullView.closeDrawers();
-                        return true;
-
+                        if(!(BaseActivity.this instanceof CreateEventActivity))
+                        {
+                            navigateToActivityFromHamburgerMenu(CreateEventActivity.class);
+                            return true;
+                        }
                     case R.id.goToSearchEventAction:
                         fullView.closeDrawers();
-                        return true;
+                        if(!(BaseActivity.this instanceof SearchEventActivity))
+                        {
+                            navigateToActivityFromHamburgerMenu(SearchEventActivity.class);
+                            return true;
+                        }
                     default:
                         return false;
                 }
             }
         });
+
     }
+    protected void navigateToActivityFromHamburgerMenu(Class destination)
+    {
+        if(getHasToFinishItsParentUponFinishing())
+        {
+            this.getParent().finish();
+        }
+        Intent navigationIntent = new Intent(BaseActivity.this, destination);
+        startActivity(navigationIntent);
+        if(!(BaseActivity.this instanceof MainPageActivity))
+        {
+            finish();
+        }
+    }
+
+
+
+
 
 }

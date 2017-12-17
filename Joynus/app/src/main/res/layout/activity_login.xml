@@ -16,8 +16,8 @@
                 android:layout_height="100dp"
                 android:layout_width="fill_parent"
 
-                android:background="#4884B8"
-                android:textColor="#FFD800"
+                android:background="@color/joynusBlue"
+                android:textColor="@color/joynusGold"
                 android:text="@string/login_identify"
                 android:textSize="30sp"
                 android:gravity="center"
@@ -86,8 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/login_go"
-                android:background="#4884B8"
-                android:textColor="#FFD800"
+                android:background="@color/joynusBlue"
+                android:textColor="@color/joynusGold"
                 android:gravity="center"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
@@ -102,8 +102,8 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:text="@string/login_create_account"
-                android:background="#4884B8"
-                android:textColor="#FFD800"
+                android:background="@color/joynusBlue"
+                android:textColor="@color/joynusGold"
                 style="?android:attr/borderlessButtonStyle"
                 />
 

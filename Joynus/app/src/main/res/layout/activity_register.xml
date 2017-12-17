@@ -14,7 +14,7 @@ android:layout_height="wrap_content">
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#B0ECF0">
+            android:background="@color/joynusPaleBlue">
             <TextView
                 android:id="@+id/RegisterFirstNameTextView"
                 android:text="@string/create_account_first_name"
@@ -64,7 +64,7 @@ android:layout_height="wrap_content">
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#B0ECF0">
+            android:background="@color/joynusPaleBlue">
             <TextView
                 android:id="@+id/RegisterBirthDateTextView"
                 android:text="@string/create_account_birth_date"
@@ -112,7 +112,7 @@ android:layout_height="wrap_content">
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#B0ECF0">
+            android:background="@color/joynusPaleBlue">
             <TextView
                 android:id="@+id/RegisterPasswordTextView"
                 android:text="@string/create_account_password"
@@ -163,15 +163,15 @@ android:layout_height="wrap_content">
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#B0ECF0">
+            android:background="@color/joynusPaleBlue">
             <Button
                 android:id="@+id/RegisterGoBackButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/go_back"
-                android:background="#4884B8"
-                android:textColor="#FFD800"
+                android:background="@color/joynusBlue"
+                android:textColor="@color/joynusGold"
 
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
@@ -191,8 +191,8 @@ android:layout_height="wrap_content">
                 android:layout_marginBottom="20dp"
                 android:text="@string/login_create_account"
                 android:gravity="center"
-                android:background="#4884B8"
-                android:textColor="#FFD800"
+                android:background="@color/joynusBlue"
+                android:textColor="@color/joynusGold"
                 style="?android:attr/borderlessButtonStyle"
                 />
 

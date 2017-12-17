@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/goToProfileAction"
+        android:title="@string/go_to_profile"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/goToCreateEventAction"
+        android:title="@string/create_an_event"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/goToSearchEventAction"
+        android:title="@string/search_for_events"
+        app:showAsAction="always" />
+</menu>

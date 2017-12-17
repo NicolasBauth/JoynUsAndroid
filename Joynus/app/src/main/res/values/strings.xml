@@ -45,8 +45,8 @@
     <string name="register_task_failed">Echec de l\'inscription!</string>
     <string name="title_activity_main">MainActivity</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="go_to_profile">Consulter votre profil</string>
+    <string name="create_an_event">Créer un évènemenent</string>
+    <string name="search_for_events">Chercher des évènements</string>
 
-    <string name="action_settings">Settings</string>
 </resources>

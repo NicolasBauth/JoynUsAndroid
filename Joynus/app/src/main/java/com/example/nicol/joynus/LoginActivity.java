@@ -14,6 +14,7 @@ import android.content.Context;
 import controller.UserController;
 import dao.UserDAO;
 import dtomodels.userDTO.UserCredentialsDTO;
+import model.User;
 import taskmodels.AuthenticateUserPackage;
 import utility.ResponseCodeChecker;
 
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity
     private Intent loginIntent;
     private Intent registerIntent;
     private static Context contextOfApplication;
+    private static User currentApplicationUser;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -103,7 +105,10 @@ public class LoginActivity extends AppCompatActivity
         }
         else
         {
-            ViewStaticMethods.displayMessage("Authentification réussie pour " +response.getUserResponse().getUsername()+","+response.getUserResponse().getAge());
+            ViewStaticMethods.displayMessage("Authentification réussie pour " +response.getUserResponse().getUsername());
+            setCurrentApplicationUser(response.getUserResponse());
+            Intent goToMainIntent = new Intent(LoginActivity.this,MainPageActivity.class);
+            startActivity(goToMainIntent);
         }
     }
 
@@ -123,6 +128,14 @@ public class LoginActivity extends AppCompatActivity
             messageToDisplay = getString(R.string.authentication_failed) + " : " + message;
         }
         ViewStaticMethods.displayMessage(messageToDisplay);
+    }
+    public static User getCurrentApplicationUser()
+    {
+        return currentApplicationUser;
+    }
+    public static void setCurrentApplicationUser(User newCurrentApplicationUser)
+    {
+        currentApplicationUser = newCurrentApplicationUser;
     }
 
 

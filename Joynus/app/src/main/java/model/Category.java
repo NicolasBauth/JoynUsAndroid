@@ -14,43 +14,43 @@ public class Category
         switch(title)
         {
             case "Etude":
-                imagePath = "Assets/study.jpg";
+                imagePath = "@drawable/study.jpg";
                 dbId = 1;
                 break;
             case "Jeux vidéo":
-                imagePath = "Assets/VideoGame.jpg";
+                imagePath = "@drawable/VideoGame.jpg";
                 dbId = 2;
                 break;
             case "Langues":
-                imagePath = "Assets/languages.jpg";
+                imagePath = "@drawable/languages.jpg";
                 dbId = 3;
                 break;
             case "Sport":
-                imagePath = "Assets/sports.jpg";
+                imagePath = "@drawable/sports.jpg";
                 dbId = 4;
                 break;
             case "Dîner":
-                imagePath = "Assets/Dinner.png";
+                imagePath = "@drawable/Dinner.png";
                 dbId = 5;
                 break;
             case "Soirée":
-                imagePath = "Assets/Party.jpg";
+                imagePath = "@drawable/Party.jpg";
                 dbId = 6;
                 break;
             case "Culture":
-                imagePath = "Assets/Culture.jpg";
+                imagePath = "@drawable/Culture.jpg";
                 dbId = 7;
                 break;
             case "Musique":
-                imagePath = "Assets/music.jpg";
+                imagePath = "@drawable/music.jpg";
                 dbId = 8;
                 break;
             case "Jeux de société":
-                imagePath = "Assets/BoardGame.jpg";
+                imagePath = "@drawable/BoardGame.jpg";
                 dbId = 9;
                 break;
             default:
-                imagePath = "Assets/questionMark.jpg";
+                imagePath = "@drawable/questionMark.jpg";
                 dbId = 10;
                 break;
         }

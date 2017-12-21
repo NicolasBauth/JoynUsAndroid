@@ -1,56 +1,69 @@
 package model;
 
 
+import com.example.nicol.joynus.LoginActivity;
+import com.example.nicol.joynus.R;
+
+
 
 public class Category
 {
     private String title;
     private int dbId;
-    private String imagePath;
+    private Integer imagePath;
 
     public Category(String title)
     {
-        this.title = title;
         switch(title)
         {
             case "Etude":
-                imagePath = "@drawable/study.jpg";
+                imagePath = R.drawable.study;
+                this.title = LoginActivity.getContextOfApplication().getString(R.string.interest_study);
                 dbId = 1;
                 break;
             case "Jeux vidéo":
-                imagePath = "@drawable/VideoGame.jpg";
+                imagePath = R.drawable.videogame;
+                this.title = LoginActivity.getContextOfApplication().getString(R.string.interest_videogames);
                 dbId = 2;
                 break;
             case "Langues":
-                imagePath = "@drawable/languages.jpg";
+                imagePath = R.drawable.languages;
+                this.title = LoginActivity.getContextOfApplication().getString(R.string.interest_languages);
                 dbId = 3;
                 break;
             case "Sport":
-                imagePath = "@drawable/sports.jpg";
+                imagePath = R.drawable.sports;
+                this.title = LoginActivity.getContextOfApplication().getString(R.string.interest_sports);
                 dbId = 4;
                 break;
             case "Dîner":
-                imagePath = "@drawable/Dinner.png";
+                imagePath = R.drawable.dinner;
+                this.title = LoginActivity.getContextOfApplication().getString(R.string.interest_dinner);
                 dbId = 5;
                 break;
             case "Soirée":
-                imagePath = "@drawable/Party.jpg";
+                imagePath = R.drawable.party;
+                this.title = LoginActivity.getContextOfApplication().getString(R.string.interest_party);
                 dbId = 6;
                 break;
             case "Culture":
-                imagePath = "@drawable/Culture.jpg";
+                imagePath = R.drawable.culture;
+                this.title = LoginActivity.getContextOfApplication().getString(R.string.interest_culture);
                 dbId = 7;
                 break;
             case "Musique":
-                imagePath = "@drawable/music.jpg";
+                imagePath = R.drawable.music;
+                this.title = LoginActivity.getContextOfApplication().getString(R.string.interest_music);
                 dbId = 8;
                 break;
             case "Jeux de société":
-                imagePath = "@drawable/BoardGame.jpg";
+                imagePath = R.drawable.boardgame;
+                this.title = LoginActivity.getContextOfApplication().getString(R.string.interest_boardgames);
                 dbId = 9;
                 break;
             default:
-                imagePath = "@drawable/questionMark.jpg";
+                imagePath = R.drawable.questionmark;
+                this.title = LoginActivity.getContextOfApplication().getString(R.string.interest_other);
                 dbId = 10;
                 break;
         }
@@ -72,11 +85,11 @@ public class Category
         this.dbId = dbId;
     }
 
-    public String getImagePath() {
+    public Integer getImagePath() {
         return imagePath;
     }
 
-    public void setImagePath(String imagePath) {
+    public void setImagePath(Integer imagePath) {
         this.imagePath = imagePath;
     }
 }

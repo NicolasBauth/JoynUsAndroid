@@ -155,6 +155,7 @@ public class UserDAO
             {
                 String urlToQuery = manager.getApiUserProfilesConnectionString()+"/UserProfileByUsername?username="+packageToFill[0].getUserResponse().getUsername();
                 UserProfileDTO modelToFill = new UserProfileDTO();
+                //TODO: Raccourcir les noms de méthode
                 HttpReturnPackage resultPackage = HttpMethodSetups.basicGetMethodSetupAndDataFetching(urlToQuery,modelToFill);
                 packageToFill[0].setResponseCode(resultPackage.getRequestResponseCode());
                 if(ResponseCodeChecker.checkWhetherTaskSucceeded(resultPackage.getRequestResponseCode()))

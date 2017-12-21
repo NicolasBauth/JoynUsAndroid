@@ -16,10 +16,9 @@ import taskmodels.HttpReturnPackage;
 
 public class HttpMethodSetups
 {
-    public static HttpURLConnection basicGetMethodSetup(String urlToQuery)
+    public static HttpURLConnection basicGetMethodSetup(String urlToQuery) throws Exception
     {
-        try
-        {
+
             URL url = new URL(urlToQuery);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.getContextOfApplication());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -29,39 +28,19 @@ public class HttpMethodSetups
             connection.setRequestProperty("Authorization", "Bearer " +token);
             connection.setDoInput(true);
             return connection;
-        }
-        catch(Exception e)
-        {
-            return null;
-        }
     }
     public static HttpReturnPackage basicGetMethodSetupAndDataFetching(String urlToQuery, Object modelObject)
     {
         HttpReturnPackage packageToReturn = new HttpReturnPackage();
         try
         {
-            packageToReturn.setRequestResponseCode(0);
             HttpURLConnection connection = HttpMethodSetups.basicGetMethodSetup(urlToQuery);
-            if(connection == null)
-            {
-                return packageToReturn;
-            }
             connection.connect();
             String jsonResponseString = JsonParser.jsonStringFromConnection(connection);
             packageToReturn.setRequestResponseCode(connection.getResponseCode());
             connection.disconnect();
-            if(jsonResponseString == null)
-            {
-                packageToReturn.setRequestResponseCode(0);
-                return packageToReturn;
-            }
             Object objectResult;
             objectResult = JsonParser.getJavaObjectFromJsonString(jsonResponseString, modelObject);
-            if(objectResult == null)
-            {
-                packageToReturn.setRequestResponseCode(0);
-                return packageToReturn;
-            }
             packageToReturn.setObjectResult(objectResult);
             return packageToReturn;
         }
@@ -71,10 +50,8 @@ public class HttpMethodSetups
             return packageToReturn;
         }
     }
-    public static HttpURLConnection basicPostMethodSetup(String urlToQuery, boolean hasDataToBeRetrieved, boolean requiresAuthorization)
+    public static HttpURLConnection basicPostMethodSetup(String urlToQuery, boolean hasDataToBeRetrieved, boolean requiresAuthorization) throws Exception
     {
-        try
-        {
             URL url = new URL(urlToQuery);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -87,13 +64,7 @@ public class HttpMethodSetups
             }
             connection.setDoOutput(true);
             connection.setDoInput(hasDataToBeRetrieved);
-            connection.connect();
             return connection;
-        }
-        catch(Exception e)
-        {
-            return null;
-        }
     }
     public static HttpReturnPackage postMethodSetupAndPosting(String urlToQuery,Object modelObject,boolean hasDataToBeRetrieved,boolean requiresAuthorization)
     {
@@ -103,11 +74,7 @@ public class HttpMethodSetups
             String jsonToPost = JsonParser.objectToJson(modelObject);
             Class classOfObject = modelObject.getClass();
             HttpURLConnection connection = basicPostMethodSetup(urlToQuery,hasDataToBeRetrieved,requiresAuthorization);
-            if (connection == null)
-            {
-                packageToReturn.setRequestResponseCode(0);
-                return packageToReturn;
-            }
+            connection.connect();
             OutputStream outputStream = connection.getOutputStream();
             OutputStreamWriter writer = new OutputStreamWriter(outputStream);
             writer.write(jsonToPost);
@@ -119,11 +86,6 @@ public class HttpMethodSetups
             {
                 String jsonResponseString = JsonParser.jsonStringFromConnection(connection);
                 modelObject = JsonParser.getJavaObjectFromJsonString(jsonResponseString,classOfObject);
-                if(modelObject == null)
-                {
-                    packageToReturn.setRequestResponseCode(0);
-                    return packageToReturn;
-                }
                 packageToReturn.setObjectResult(modelObject);
             }
             connection.disconnect();

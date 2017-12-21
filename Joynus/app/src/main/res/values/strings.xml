@@ -48,5 +48,18 @@
     <string name="go_to_profile">Consulter votre profil</string>
     <string name="create_an_event">Créer un évènemenent</string>
     <string name="search_for_events">Chercher des évènements</string>
+    <string name="profile_edit_interests">Editer vos intérêts</string>
+    <string name="profile_created_events">Evènements créés</string>
+    <string name="profile_participating_events">Participations</string>
 
+    <string name="interest_study">Etude</string>
+    <string name="interest_videogames">Jeux vidéo</string>
+    <string name="interest_languages">Langues</string>
+    <string name="interest_sports">Sports</string>
+    <string name="interest_dinner">Dîner</string>
+    <string name="interest_party">Soirées</string>
+    <string name="interest_culture">Culture</string>
+    <string name="interest_music">Musique</string>
+    <string name="interest_boardgames">Jeux de société</string>
+    <string name="interest_other">Autres</string>
 </resources>

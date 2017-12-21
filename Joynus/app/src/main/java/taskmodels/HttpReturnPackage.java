@@ -11,10 +11,10 @@ public class HttpReturnPackage
 
     }
 
-    public HttpReturnPackage(Object objectResult, int requestResponseCode) {
+    /*public HttpReturnPackage(Object objectResult, int requestResponseCode) {
         this.objectResult = objectResult;
         this.requestResponseCode = requestResponseCode;
-    }
+    }*/
 
     public Object getObjectResult() {
         return objectResult;

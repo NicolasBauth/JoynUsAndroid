@@ -4,25 +4,22 @@ import java.util.ArrayList;
 
 public class UpdateUserInterestForm
 {
-    private String username;
-    private ArrayList<Integer> newInterestsId;
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setNewInterestsId(ArrayList<Integer> newInterestsId) {
-        this.newInterestsId = newInterestsId;
-    }
+    private String Username;
+    private ArrayList<Integer> NewInterestsIds;
 
     public String getUsername() {
-
-        return username;
+        return Username;
     }
 
-    public ArrayList<Integer> getNewInterestsId() {
-        return newInterestsId;
+    public void setUsername(String username) {
+        Username = username;
     }
 
+    public ArrayList<Integer> getNewInterestsIds() {
+        return NewInterestsIds;
+    }
 
+    public void setNewInterestsIds(ArrayList<Integer> newInterestsIds) {
+        NewInterestsIds = newInterestsIds;
+    }
 }

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/profileInterestsRelativeLayout"
+    android:id="@+id/editInterestsRelativeLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="5dp">
 
+
     <ImageView
         android:layout_height="80dp"
-        android:id="@+id/categoryImageView"
+        android:id="@+id/editInterestsCategoryImageView"
         android:layout_width="80dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
@@ -16,12 +17,22 @@
 
     <TextView
         android:layout_height="wrap_content"
-        android:id="@+id/categoryTextView"
+        android:id="@+id/editInterestsCategoryTextView"
         android:layout_width="wrap_content"
-        android:layout_below="@+id/categoryImageView"
+        android:layout_below="@+id/editInterestsCategoryImageView"
         android:layout_marginTop="2dp"
         android:layout_centerHorizontal="true"
         android:textSize="18sp"
         android:ellipsize="marquee"/>
+    <CheckBox
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/editInterestsCategoryCheckBox"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:theme="@style/checkBoxStyle"
+        />
+
 
 </RelativeLayout>

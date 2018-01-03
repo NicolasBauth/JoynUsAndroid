@@ -18,4 +18,18 @@ public class CategoryService
         }
         return createdCategoryList;
     }
+    public static ArrayList<Category> getAllCategoriesArrayList()
+    {
+        ArrayList<Category> allCategoriesArrayList = new ArrayList<Category>();
+        allCategoriesArrayList.add(new Category("Etude"));
+        allCategoriesArrayList.add(new Category("Jeux vidéo"));
+        allCategoriesArrayList.add(new Category("Langues"));
+        allCategoriesArrayList.add(new Category("Sport"));
+        allCategoriesArrayList.add(new Category("Dîner"));
+        allCategoriesArrayList.add(new Category("Soirée"));
+        allCategoriesArrayList.add(new Category("Culture"));
+        allCategoriesArrayList.add(new Category("Musique"));
+        allCategoriesArrayList.add(new Category("Jeux de société"));
+        return allCategoriesArrayList;
+    }
 }

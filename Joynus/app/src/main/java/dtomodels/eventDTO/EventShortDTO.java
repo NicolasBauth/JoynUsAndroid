@@ -5,40 +5,40 @@ import java.util.Date;
 
 public class EventShortDTO
 {
-    private long id;
-    private String title;
-    private String address;
-    private Date date;
+    private long Id;
+    private String Title;
+    private String Address;
+    private Date Date;
 
     public long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.Address = address;
     }
 
     public Date getDate() {
-        return date;
+        return Date;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.Date = date;
     }
 }

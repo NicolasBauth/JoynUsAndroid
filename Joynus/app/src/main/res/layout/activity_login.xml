@@ -104,6 +104,7 @@
                 android:text="@string/login_create_account"
                 android:background="@color/joynusBlue"
                 android:textColor="@color/joynusGold"
+                android:gravity="center"
                 style="?android:attr/borderlessButtonStyle"
                 />
 

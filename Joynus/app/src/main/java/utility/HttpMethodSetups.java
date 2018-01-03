@@ -29,7 +29,7 @@ public class HttpMethodSetups
             connection.setDoInput(true);
             return connection;
     }
-    public static HttpReturnPackage basicGetMethodSetupAndDataFetching(String urlToQuery, Object modelObject)
+    public static HttpReturnPackage basicGetMethodSetupAndDataFetching(String urlToQuery, Object modelObject, boolean isResponseAnArray)
     {
         HttpReturnPackage packageToReturn = new HttpReturnPackage();
         try
@@ -40,7 +40,7 @@ public class HttpMethodSetups
             packageToReturn.setRequestResponseCode(connection.getResponseCode());
             connection.disconnect();
             Object objectResult;
-            objectResult = JsonParser.getJavaObjectFromJsonString(jsonResponseString, modelObject);
+            objectResult = JsonParser.getJavaObjectFromJsonString(jsonResponseString, modelObject,isResponseAnArray);
             packageToReturn.setObjectResult(objectResult);
             return packageToReturn;
         }
@@ -66,14 +66,38 @@ public class HttpMethodSetups
             connection.setDoInput(hasDataToBeRetrieved);
             return connection;
     }
-    public static HttpReturnPackage postMethodSetupAndPosting(String urlToQuery,Object modelObject,boolean hasDataToBeRetrieved,boolean requiresAuthorization)
+    public static HttpURLConnection basicPutMethodSetup(String urlToQuery, boolean hasDataToBeRetrieved, boolean requiresAuthorization) throws Exception
+    {
+        URL url = new URL(urlToQuery);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Content-type", "application/json");
+        if(requiresAuthorization)
+        {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.getContextOfApplication());
+            String token = preferences.getString("token","");
+            connection.setRequestProperty("Authorization", "Bearer " +token);
+        }
+        connection.setDoOutput(true);
+        connection.setDoInput(hasDataToBeRetrieved);
+        return connection;
+    }
+    public static HttpReturnPackage postOrPutMethodSetupAndPosting(String urlToQuery,Object objectToSend, Object resultModelObject,boolean requiresAuthorization,boolean isPost)
     {
         HttpReturnPackage packageToReturn = new HttpReturnPackage();
         try
         {
-            String jsonToPost = JsonParser.objectToJson(modelObject);
-            Class classOfObject = modelObject.getClass();
-            HttpURLConnection connection = basicPostMethodSetup(urlToQuery,hasDataToBeRetrieved,requiresAuthorization);
+            boolean hasDataToBeRetrieved = (resultModelObject != null);
+            String jsonToPost = JsonParser.objectToJson(objectToSend);
+            HttpURLConnection connection;
+            if(isPost)
+            {
+                connection = basicPostMethodSetup(urlToQuery,hasDataToBeRetrieved,requiresAuthorization);
+            }
+            else
+            {
+                connection = basicPutMethodSetup(urlToQuery,hasDataToBeRetrieved,requiresAuthorization);
+            }
             connection.connect();
             OutputStream outputStream = connection.getOutputStream();
             OutputStreamWriter writer = new OutputStreamWriter(outputStream);
@@ -85,8 +109,10 @@ public class HttpMethodSetups
             if(hasDataToBeRetrieved && ResponseCodeChecker.checkWhetherTaskSucceeded(responseCode))
             {
                 String jsonResponseString = JsonParser.jsonStringFromConnection(connection);
-                modelObject = JsonParser.getJavaObjectFromJsonString(jsonResponseString,classOfObject);
-                packageToReturn.setObjectResult(modelObject);
+                Class classOfObject = resultModelObject.getClass();
+                Object result;
+                result = JsonParser.getJavaObjectFromJsonString(jsonResponseString,resultModelObject,false);
+                packageToReturn.setObjectResult(result);
             }
             connection.disconnect();
             packageToReturn.setRequestResponseCode(responseCode);

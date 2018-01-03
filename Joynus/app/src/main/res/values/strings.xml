@@ -51,6 +51,7 @@
     <string name="profile_edit_interests">Editer vos intérêts</string>
     <string name="profile_created_events">Evènements créés</string>
     <string name="profile_participating_events">Participations</string>
+    <string name="profile_no_events_found">Aucun évènement trouvé</string>
 
     <string name="interest_study">Etude</string>
     <string name="interest_videogames">Jeux vidéo</string>
@@ -62,4 +63,15 @@
     <string name="interest_music">Musique</string>
     <string name="interest_boardgames">Jeux de société</string>
     <string name="interest_other">Autres</string>
+
+    <string name="edit_interest_success">Intérêts édités avec succès!</string>
+    <string name="edit_interest_failure">Echec de l\'édition des intérêts.</string>
+
+    <string name="search_event_radius">Rayon en km:</string>
+    <string name="search_event_categories_filter">Filtre de catégories</string>
+    <string name="search_event_help">Si aucune catégorie n\'est sélectionnée, aucun filtre ne sera appliqué. Le bouton ci-dessous permet de placer sur une carte l\'endroit à partir duquel vous voulez scanner.</string>
+    <string name="search_event_define_scan_center">Localiser le centre de scan</string>
+    <string name="search_event_launch_scan">Lancer la recherche</string>
+
+
 </resources>

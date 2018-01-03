@@ -11,20 +11,12 @@ import android.widget.FrameLayout;
 
 public class BaseActivity extends AppCompatActivity {
 
-    private boolean hasToFinishItsParentUponFinishing;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setHasToFinishItsParentUponFinishing(false);
+
     }
-    protected void setHasToFinishItsParentUponFinishing(boolean hasToFinishItsParentUponFinishing)
-    {
-        this.hasToFinishItsParentUponFinishing=hasToFinishItsParentUponFinishing;
-    }
-    protected boolean getHasToFinishItsParentUponFinishing()
-    {
-        return hasToFinishItsParentUponFinishing;
-    }
+
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
@@ -69,10 +61,7 @@ public class BaseActivity extends AppCompatActivity {
     }
     protected void navigateToActivityFromHamburgerMenu(Class destination)
     {
-        if(getHasToFinishItsParentUponFinishing())
-        {
-            this.getParent().finish();
-        }
+
         Intent navigationIntent = new Intent(BaseActivity.this, destination);
         startActivity(navigationIntent);
         if(!(BaseActivity.this instanceof MainPageActivity))

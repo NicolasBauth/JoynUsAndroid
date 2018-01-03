@@ -99,18 +99,11 @@ public class LoginActivity extends AppCompatActivity
 
     public void notifyAuthenticatedUser(AuthenticateUserPackage response)
     {
-        if(!ResponseCodeChecker.checkWhetherTaskSucceeded(response.getResponseCode()))
-        {
-            ViewStaticMethods.displayMessage(ResponseCodeChecker.getResponseCodeErrorMessage(response.getResponseCode()));
-        }
-        else
-        {
             ViewStaticMethods.displayMessage("Authentification réussie pour " +response.getUserResponse().getUsername());
             setCurrentApplicationUser(response.getUserResponse());
             Intent goToMainIntent = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(goToMainIntent);
             finish();
-        }
     }
 
     public void notifyAuthenticationFailed(int responseCode)

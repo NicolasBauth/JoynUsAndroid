@@ -1,11 +1,13 @@
 package model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Event
-{
+public class Event implements Parcelable {
     private long dbId;
     private double latitude;
     private double longitude;
@@ -123,4 +125,69 @@ public class Event
     public void setParticipantsCount(int participantsCount) {
         this.participantsCount = participantsCount;
     }
+    public Event()
+    {
+
+    }
+    protected Event(Parcel in) {
+        dbId = in.readLong();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        title = in.readString();
+        description = in.readString();
+        address = in.readString();
+        urlFacebook = in.readString();
+        long tmpDate = in.readLong();
+        date = tmpDate != -1 ? new Date(tmpDate) : null;
+        if (in.readByte() == 0x01) {
+            categories = new ArrayList<Category>();
+            in.readList(categories, Category.class.getClassLoader());
+        } else {
+            categories = null;
+        }
+        creatorUsername = in.readString();
+        creatorFirstname = in.readString();
+        creatorLastname = in.readString();
+        participantsCount = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(dbId);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(address);
+        dest.writeString(urlFacebook);
+        dest.writeLong(date != null ? date.getTime() : -1L);
+        if (categories == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(categories);
+        }
+        dest.writeString(creatorUsername);
+        dest.writeString(creatorFirstname);
+        dest.writeString(creatorLastname);
+        dest.writeInt(participantsCount);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 }

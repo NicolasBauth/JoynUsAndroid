@@ -17,8 +17,8 @@ import model.Category;
 
 public class InterestsGridViewAdapter extends BaseAdapter
 {
-    private ArrayList<Category> categoriesToDisplay;
-    private Activity sender;
+    protected ArrayList<Category> categoriesToDisplay;
+    protected Activity sender;
 
     public InterestsGridViewAdapter(Activity sender, ArrayList<Category> categoriesToDisplay)
     {

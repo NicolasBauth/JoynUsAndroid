@@ -3,22 +3,22 @@ package dtomodels.userDTO;
 
 public class EventParticipationForm
 {
-    private String username;
-    private long eventId;
+    private String Username;
+    private long EventId;
 
     public String getUsername() {
-        return username;
+        return Username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.Username = username;
     }
 
     public long getEventId() {
-        return eventId;
+        return EventId;
     }
 
     public void setEventId(long eventId) {
-        this.eventId = eventId;
+        this.EventId = eventId;
     }
 }

@@ -33,7 +33,12 @@ public class BaseActivity extends AppCompatActivity {
                         fullView.closeDrawers();
                         if(!(BaseActivity.this instanceof ProfileActivity))
                         {
-                            navigateToActivityFromHamburgerMenu(ProfileActivity.class);
+                            Intent navigationIntent = new Intent(BaseActivity.this, ProfileActivity.class);
+                            navigationIntent.putExtra("profileToDisplay",LoginActivity.getCurrentApplicationUser());
+                            startActivity(navigationIntent);
+                            if(!(BaseActivity.this instanceof MainPageActivity)) {
+                                finish();
+                            }
                             return true;
                         }
                         return false;

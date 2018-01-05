@@ -29,6 +29,7 @@ public class HttpMethodSetups
             connection.setDoInput(true);
             return connection;
     }
+
     public static HttpReturnPackage basicGetMethodSetupAndDataFetching(String urlToQuery, Object modelObject, boolean isResponseAnArray)
     {
         HttpReturnPackage packageToReturn = new HttpReturnPackage();
@@ -49,6 +50,22 @@ public class HttpMethodSetups
             packageToReturn.setRequestResponseCode(0);
             return packageToReturn;
         }
+    }
+    public static HttpURLConnection basicDeleteMethodSetup(String urlToQuery,boolean requiresAuthorization) throws Exception
+    {
+        URL url = new URL(urlToQuery);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("DELETE");
+        connection.setRequestProperty("Content-type", "application/json");
+        if(requiresAuthorization)
+        {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.getContextOfApplication());
+            String token = preferences.getString("token","");
+            connection.setRequestProperty("Authorization", "Bearer " +token);
+        }
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
+        return connection;
     }
     public static HttpURLConnection basicPostMethodSetup(String urlToQuery, boolean hasDataToBeRetrieved, boolean requiresAuthorization) throws Exception
     {

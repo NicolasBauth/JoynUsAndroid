@@ -1,12 +1,15 @@
 package model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.nicol.joynus.LoginActivity;
 import com.example.nicol.joynus.R;
 
 
 
-public class Category
+public class Category implements Parcelable
 {
     private String title;
     private int dbId;
@@ -92,4 +95,35 @@ public class Category
     public void setImagePath(Integer imagePath) {
         this.imagePath = imagePath;
     }
+
+    protected Category(Parcel in)
+    {
+        title = in.readString();
+        dbId = in.readInt();
+        imagePath = in.readInt();
+    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeString(title);
+        dest.writeInt(dbId);
+        dest.writeInt(imagePath);
+    }
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() {
+        @Override
+        public Category createFromParcel(Parcel in) {
+            return new Category(in);
+        }
+
+        @Override
+        public Category[] newArray(int size) {
+            return new Category[size];
+        }
+    };
 }

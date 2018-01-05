@@ -26,6 +26,8 @@ public class EditInterestActivity extends BaseActivity {
     private Button editInterestsButton;
     private Category allInterestsList;
     private UserDAO userDAO;
+    private ArrayList<Category> savedUserInterests;
+    private boolean hasEditedInterests;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -36,8 +38,21 @@ public class EditInterestActivity extends BaseActivity {
         editInterestsButton = (Button) findViewById(R.id.validateEditInterestsButton);
         editInterestsButton.setOnClickListener(editInterestsListener());
         this.applicationUser = LoginActivity.getCurrentApplicationUser();
+        savedUserInterests = new ArrayList<Category>();
+        savedUserInterests.addAll(LoginActivity.getCurrentApplicationUser().getInterests());
+        hasEditedInterests = false;
         adapter = new EditInterestsGridViewAdapter(this, CategoryService.getAllCategoriesArrayList());
         editInterestsGrid.setAdapter(adapter);
+    }
+
+    @Override
+    protected  void onDestroy()
+    {
+        super.onDestroy();
+        if(!hasEditedInterests)
+        {
+            LoginActivity.getCurrentApplicationUser().setInterests(savedUserInterests);
+        }
     }
 
     public View.OnClickListener editInterestsListener()
@@ -58,6 +73,10 @@ public class EditInterestActivity extends BaseActivity {
     {
         LoginActivity.getCurrentApplicationUser().setInterests(updatedInterests);
         ViewStaticMethods.displayMessage(getString(R.string.edit_interest_success));
+        Intent updatedProfileIntent = new Intent(EditInterestActivity.this,ProfileActivity.class);
+        updatedProfileIntent.putExtra("profileToDisplay",LoginActivity.getCurrentApplicationUser());
+        hasEditedInterests = true;
+        startActivity(updatedProfileIntent);
         finish();
     }
     public void notifyEditInterestFailure(int responseCode)

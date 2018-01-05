@@ -1,19 +1,14 @@
 package com.example.nicol.joynus;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import adapters.InterestsGridViewAdapter;
 import dao.EventDAO;
-import dtomodels.eventDTO.EventShortDTO;
 import model.User;
 import taskmodels.EventListingPackage;
 import utility.ResponseCodeChecker;
@@ -21,7 +16,7 @@ import utility.ResponseCodeChecker;
 public class ProfileActivity extends BaseActivity {
 
     private InterestsGridViewAdapter interestsGridAdapter;
-    private User applicationUser;
+    private User userToDisplay;
     private GridView userInterestsGrid;
     private TextView presentationStringView;
     private Button editInterestsButton;
@@ -33,14 +28,21 @@ public class ProfileActivity extends BaseActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        applicationUser = LoginActivity.getCurrentApplicationUser();
+        userToDisplay = getIntent().getExtras().getParcelable("profileToDisplay");
         userInterestsGrid = (GridView) findViewById(R.id.userInterestsGridView);
         presentationStringView = (TextView) findViewById(R.id.presentation);
         editInterestsButton = (Button) findViewById(R.id.editInterestsButton);
         createdEventsButton = (Button) findViewById(R.id.createdEventsButton);
         participatingEventsButton = (Button) findViewById(R.id.profileParticipatingEventsButton);
         eventDAO = new EventDAO();
-        editInterestsButton.setOnClickListener(editInterestsListener());
+        if(!userToDisplay.getUsername().equals(LoginActivity.getCurrentApplicationUser().getUsername()))
+        {
+            editInterestsButton.setEnabled(false);
+            editInterestsButton.setVisibility(View.GONE);
+        }
+        else {
+            editInterestsButton.setOnClickListener(editInterestsListener());
+        }
         createdEventsButton.setOnClickListener(createdEventsListener());
         participatingEventsButton.setOnClickListener(participatingEventsListener());
     }
@@ -48,10 +50,9 @@ public class ProfileActivity extends BaseActivity {
     protected void onStart()
     {
         super.onStart();
-        applicationUser = LoginActivity.getCurrentApplicationUser();
-        String presentationString = applicationUser.getFirstname()+", "+applicationUser.getAge()+" ans";
+        String presentationString = userToDisplay.getFirstname()+", "+ userToDisplay.getAge()+" ans";
         presentationStringView.setText(presentationString);
-        interestsGridAdapter = new InterestsGridViewAdapter(this,applicationUser.getInterests());
+        interestsGridAdapter = new InterestsGridViewAdapter(this, userToDisplay.getInterests());
         userInterestsGrid.setAdapter(interestsGridAdapter);
     }
 
@@ -62,8 +63,11 @@ public class ProfileActivity extends BaseActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(ProfileActivity.this,EditInterestActivity.class);
-                startActivity(intent);
+
+                    Intent intent = new Intent(ProfileActivity.this, EditInterestActivity.class);
+                    startActivity(intent);
+                    finish();
+
             }
         };
         return listener;
@@ -76,7 +80,7 @@ public class ProfileActivity extends BaseActivity {
             public void onClick(View v)
             {
                 EventListingPackage packageToFill = new EventListingPackage();
-                packageToFill.setUsername(LoginActivity.getCurrentApplicationUser().getUsername());
+                packageToFill.setUsername(userToDisplay.getUsername());
                 packageToFill.setSender(ProfileActivity.this);
                 eventDAO.getEventsCreatedByUser(packageToFill);
             }
@@ -91,7 +95,7 @@ public class ProfileActivity extends BaseActivity {
             public void onClick(View v)
             {
                 EventListingPackage packageToFill = new EventListingPackage();
-                packageToFill.setUsername(LoginActivity.getCurrentApplicationUser().getUsername());
+                packageToFill.setUsername(userToDisplay.getUsername());
                 packageToFill.setSender(ProfileActivity.this);
                 eventDAO.getEventsUserParticipates(packageToFill);
             }

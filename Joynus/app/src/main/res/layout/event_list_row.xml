@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/event_list_row_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="5dp"
+    android:orientation="vertical"
+    android:background="@color/joynusBlue">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize ="20sp"
+        android:background="@color/joynusPaleBlue"
+        android:id = "@+id/event_list_row_title"
+        android:text="@string/search_event_launch_scan"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_event_help"
+        android:id="@+id/event_list_row_address"
+        android:textSize="16sp"
+        android:gravity = "center_horizontal"
+        android:textColor="@color/joynusGold"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize ="16sp"
+        android:background="@color/joynusPaleBlue"
+        android:id = "@+id/event_list_row_date"
+        android:text="@string/search_event_launch_scan"
+        />
+
+</LinearLayout>

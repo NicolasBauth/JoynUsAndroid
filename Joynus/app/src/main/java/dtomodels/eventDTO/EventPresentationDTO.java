@@ -6,123 +6,121 @@ import java.util.Date;
 
 public class EventPresentationDTO
 {
-    private long id;
-    private String title;
-    private int userCount;
-    private String address;
-    private Date date;
-    private ArrayList<String> categoriesNames;
-    private String creatorFirstName;
-    private String creatorLastName;
-    private String creatorUsername;
-    private String description;
-    private String facebookUrl;
-    private double longitude;
-    private double latitude;
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setUserCount(int userCount) {
-        this.userCount = userCount;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public void setCategoriesNames(ArrayList<String> categoriesNames) {
-        this.categoriesNames = categoriesNames;
-    }
-
-    public void setCreatorFirstName(String creatorFirstName) {
-        this.creatorFirstName = creatorFirstName;
-    }
-
-    public void setCreatorLastName(String creatorLastName) {
-        this.creatorLastName = creatorLastName;
-    }
-
-    public void setCreatorUsername(String creatorUsername) {
-        this.creatorUsername = creatorUsername;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setFacebookUrl(String facebookUrl) {
-        this.facebookUrl = facebookUrl;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getCreatorFirstName() {
-
-        return creatorFirstName;
-    }
-
-    public String getCreatorLastName() {
-        return creatorLastName;
-    }
-
-    public String getCreatorUsername() {
-        return creatorUsername;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getFacebookUrl() {
-        return facebookUrl;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
+    private long Id;
+    private String Title;
+    private int UserCount;
+    private String Address;
+    private Date Date;
+    private ArrayList<String> CategoriesNames;
+    private String CreatorFirstName;
+    private String CreatorLastName;
+    private String CreatorUsername;
+    private String Description;
+    private String UrlFacebook;
+    private double Longitude;
+    private double Latitude;
 
     public long getId() {
+        return Id;
+    }
 
-        return id;
+    public void setId(long id) {
+        Id = id;
     }
 
     public String getTitle() {
-        return title;
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
     }
 
     public int getUserCount() {
-        return userCount;
+        return UserCount;
+    }
+
+    public void setUserCount(int userCount) {
+        UserCount = userCount;
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
-    public Date getDate() {
-        return date;
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public java.util.Date getDate() {
+        return Date;
+    }
+
+    public void setDate(java.util.Date date) {
+        Date = date;
     }
 
     public ArrayList<String> getCategoriesNames() {
-        return categoriesNames;
+        return CategoriesNames;
+    }
+
+    public void setCategoriesNames(ArrayList<String> categoriesNames) {
+        CategoriesNames = categoriesNames;
+    }
+
+    public String getCreatorFirstName() {
+        return CreatorFirstName;
+    }
+
+    public void setCreatorFirstName(String creatorFirstName) {
+        CreatorFirstName = creatorFirstName;
+    }
+
+    public String getCreatorLastName() {
+        return CreatorLastName;
+    }
+
+    public void setCreatorLastName(String creatorLastName) {
+        CreatorLastName = creatorLastName;
+    }
+
+    public String getCreatorUsername() {
+        return CreatorUsername;
+    }
+
+    public void setCreatorUsername(String creatorUsername) {
+        CreatorUsername = creatorUsername;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
+
+    public String getUrlFacebook() {
+        return UrlFacebook;
+    }
+
+    public void setUrlFacebook(String urlFacebook) {
+        UrlFacebook = urlFacebook;
+    }
+
+    public double getLongitude() {
+        return Longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        Longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return Latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        Latitude = latitude;
     }
 }

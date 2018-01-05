@@ -53,6 +53,10 @@ public class UserDAO
     {
         new AuthenticateUser().execute(packageToFill);
     }
+    public void loadProfile(AuthenticateUserPackage profilePackage)
+    {
+        new LoadProfile().execute(profilePackage);
+    }
     private class RegisterUser extends AsyncTask<RegisterUserPackage,Void,RegisterUserPackage>
     {
         protected RegisterUserPackage doInBackground(RegisterUserPackage... registerUserPackage)
@@ -184,11 +188,23 @@ public class UserDAO
         {
             if(ResponseCodeChecker.checkWhetherTaskSucceeded(response.getResponseCode()))
             {
-                response.getSender().notifyAuthenticatedUser(response);
+                if(!(response.getSender() == null)) {
+                    response.getSender().notifyAuthenticatedUser(response);
+                }
+                else
+                {
+                    response.getEventDescriptionActivitySender().notifyCreatorProfileLoadSuccess(response.getUserResponse());
+                }
             }
             else
             {
-                response.getSender().notifyAuthenticationFailed(response.getResponseCode());
+                if(!(response.getSender() == null)) {
+                    response.getSender().notifyAuthenticationFailed(response.getResponseCode());
+                }
+                else
+                {
+                    response.getEventDescriptionActivitySender().notifyCreatorProfileFailure(response.getResponseCode());
+                }
             }
         }
     }

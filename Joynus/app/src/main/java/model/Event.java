@@ -3,11 +3,12 @@ package model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Event implements Parcelable {
+public class Event implements Parcelable,Comparable<Event> {
     private long dbId;
     private double latitude;
     private double longitude;
@@ -128,6 +129,11 @@ public class Event implements Parcelable {
     public Event()
     {
 
+    }
+    @Override
+    public int compareTo(@NonNull Event eventToCompare)
+    {
+        return getDate().compareTo(eventToCompare.getDate());
     }
     protected Event(Parcel in) {
         dbId = in.readLong();

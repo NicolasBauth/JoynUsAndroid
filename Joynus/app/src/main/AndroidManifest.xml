@@ -36,8 +36,10 @@
         <activity
             android:name=".EditInterestActivity"
             android:label="@string/app_name" />
-        <activity android:name=".EventListActivity" />
-        <activity android:name=".EventDescriptionActivity"></activity>
+        <activity android:name=".EventListActivity"
+            android:label="@string/app_name"/>
+        <activity android:name=".EventDescriptionActivity"
+            android:label="@string/app_name"/>
     </application>
 
 </manifest>

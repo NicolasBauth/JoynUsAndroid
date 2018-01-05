@@ -25,7 +25,7 @@ public class ResponseCodeChecker
             case 401:
                 return applicationContext.getString(R.string.error_authentication);
             case 404:
-                return applicationContext.getString(R.string.error_no_internet);
+                return applicationContext.getString(R.string.error_not_found);
             default:
                 return applicationContext.getString(R.string.error_unidentified);
         }

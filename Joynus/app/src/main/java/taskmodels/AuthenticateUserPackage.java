@@ -3,6 +3,7 @@ package taskmodels;
 
 import android.app.Activity;
 
+import com.example.nicol.joynus.EventDescriptionActivity;
 import com.example.nicol.joynus.LoginActivity;
 
 import dtomodels.userDTO.UserCredentialsDTO;
@@ -14,6 +15,15 @@ public class AuthenticateUserPackage
     private User userResponse;
     private int responseCode;
     private LoginActivity sender;
+    private EventDescriptionActivity eventDescriptionActivitySender;
+
+    public EventDescriptionActivity getEventDescriptionActivitySender() {
+        return eventDescriptionActivitySender;
+    }
+
+    public void setEventDescriptionActivitySender(EventDescriptionActivity eventDescriptionActivitySender) {
+        this.eventDescriptionActivitySender = eventDescriptionActivitySender;
+    }
 
     public LoginActivity getSender() {
         return sender;

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import dtomodels.eventDTO.EventPresentationDTO;
+import dtomodels.eventDTO.EventScanDTO;
 import dtomodels.eventDTO.EventShortDTO;
 import model.Category;
 import model.Event;
@@ -45,6 +46,39 @@ public class EventService
         parsedEvent.setCategories(eventCategories);
         return parsedEvent;
     }
+
+    public static ArrayList<Event> eventScanResultToEventArrayList(ArrayList<EventScanDTO> arrayToParse, ArrayList<Category> filters)
+    {
+        ArrayList<Event> parsedEventsList = new ArrayList<Event>();
+        ArrayList<String> filterNames = new ArrayList<String>();
+        if(filters == null||filters.size()== 0)
+        {
+            filters = CategoryService.getAllCategoriesArrayList();
+        }
+        for(Category filter: filters)
+        {
+            filterNames.add(filter.getTitle());
+        }
+        for(EventScanDTO scan : arrayToParse)
+        {
+            for(String categoryName : scan.getCategoriesNames())
+            {
+                if(filterNames.contains(categoryName))
+                {
+                    Event parsedEvent = new Event();
+                    parsedEvent.setDbId(scan.getId());
+                    parsedEvent.setAddress(scan.getAddress());
+                    parsedEvent.setTitle(scan.getTitle());
+                    parsedEvent.setDate(scan.getDate());
+                    parsedEventsList.add(parsedEvent);
+                    break;
+                }
+            }
+
+        }
+        return parsedEventsList;
+    }
+
 
     public static String createDateStringFromDate(Date date)
     {

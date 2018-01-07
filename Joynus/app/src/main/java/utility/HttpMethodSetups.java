@@ -99,7 +99,7 @@ public class HttpMethodSetups
         connection.setDoInput(hasDataToBeRetrieved);
         return connection;
     }
-    public static HttpReturnPackage postOrPutMethodSetupAndPosting(String urlToQuery,Object objectToSend, Object resultModelObject,boolean requiresAuthorization,boolean isPost)
+    public static HttpReturnPackage postOrPutMethodSetupAndPosting(String urlToQuery,Object objectToSend, Object resultModelObject,boolean requiresAuthorization,boolean isPost,boolean isResponseAnArray)
     {
         HttpReturnPackage packageToReturn = new HttpReturnPackage();
         try
@@ -128,7 +128,7 @@ public class HttpMethodSetups
                 String jsonResponseString = JsonParser.jsonStringFromConnection(connection);
                 Class classOfObject = resultModelObject.getClass();
                 Object result;
-                result = JsonParser.getJavaObjectFromJsonString(jsonResponseString,resultModelObject,false);
+                result = JsonParser.getJavaObjectFromJsonString(jsonResponseString,resultModelObject,isResponseAnArray);
                 packageToReturn.setObjectResult(result);
             }
             connection.disconnect();
@@ -138,6 +138,7 @@ public class HttpMethodSetups
         catch(Exception e)
         {
             packageToReturn.setRequestResponseCode(0);
+            String message = e.getMessage();
             return packageToReturn;
         }
     }

@@ -64,7 +64,7 @@ public class UserDAO
             try
             {
                 String urlToQuery = manager.getAccountConnectionString()+"/Register";
-                HttpReturnPackage postResponse = HttpMethodSetups.postOrPutMethodSetupAndPosting(urlToQuery,registerUserPackage[0].getFormToSend(),null,false,true);
+                HttpReturnPackage postResponse = HttpMethodSetups.postOrPutMethodSetupAndPosting(urlToQuery,registerUserPackage[0].getFormToSend(),null,false,true,false);
                 registerUserPackage[0].setResponseCode(postResponse.getRequestResponseCode());
                 return registerUserPackage[0];
             }
@@ -216,7 +216,7 @@ public class UserDAO
             {
                 String urlToQuery = manager.getApiUserProfilesConnectionString()+"/UpdateUserInterests";
                 UserProfileDTO response = new UserProfileDTO();
-                HttpReturnPackage resultPackage = HttpMethodSetups.postOrPutMethodSetupAndPosting(urlToQuery,packageToSend[0].getFormToSend(),response,true,false);
+                HttpReturnPackage resultPackage = HttpMethodSetups.postOrPutMethodSetupAndPosting(urlToQuery,packageToSend[0].getFormToSend(),response,true,false,false);
                 packageToSend[0].setResponseCode(resultPackage.getRequestResponseCode());
                 if(ResponseCodeChecker.checkWhetherTaskSucceeded(resultPackage.getRequestResponseCode()))
                 {

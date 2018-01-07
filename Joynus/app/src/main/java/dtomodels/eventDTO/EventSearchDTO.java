@@ -4,31 +4,31 @@ package dtomodels.eventDTO;
 
 public class EventSearchDTO
 {
-    private int radius;
-    private double centerLatitude;
-    private double centerLongitude;
+    private int Radius;
+    private double CenterLatitude;
+    private double CenterLongitude;
 
     public int getRadius() {
-        return radius;
+        return Radius;
     }
 
     public void setRadius(int radius) {
-        this.radius = radius;
+        this.Radius = radius;
     }
 
     public double getCenterLatitude() {
-        return centerLatitude;
+        return CenterLatitude;
     }
 
     public void setCenterLatitude(double centerLatitude) {
-        this.centerLatitude = centerLatitude;
+        this.CenterLatitude = centerLatitude;
     }
 
     public double getCenterLongitude() {
-        return centerLongitude;
+        return CenterLongitude;
     }
 
     public void setCenterLongitude(double centerLongitude) {
-        this.centerLongitude = centerLongitude;
+        this.CenterLongitude = centerLongitude;
     }
 }

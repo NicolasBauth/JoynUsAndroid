@@ -14,6 +14,7 @@ public class EventDetailsPackage
     private long eventId;
     private EventListActivity sender;
 
+
     public int getResponseCode() {
         return responseCode;
     }

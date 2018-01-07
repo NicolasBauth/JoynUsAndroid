@@ -12,12 +12,14 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
 import dtomodels.eventDTO.EventPresentationDTO;
+import dtomodels.eventDTO.EventScanDTO;
 import dtomodels.eventDTO.EventShortDTO;
 import model.Event;
 import service.EventService;
 import taskmodels.DeleteEventPackage;
 import taskmodels.EventDetailsPackage;
 import taskmodels.EventListingPackage;
+import taskmodels.EventSearchPackage;
 import taskmodels.HttpReturnPackage;
 import taskmodels.UserParticipationPackage;
 import utility.ConnectionStringsManager;
@@ -60,6 +62,11 @@ public class EventDAO
     public void deleteEvent(DeleteEventPackage deleteEventPackage)
     {
         new DeleteEvent().execute(deleteEventPackage);
+    }
+
+    public void getEventsAroundPoint(EventSearchPackage eventSearchPackage)
+    {
+        new GetEventsAroundPoint().execute(eventSearchPackage);
     }
     private class GetEventListing extends AsyncTask<EventListingPackage,Void,EventListingPackage>
     {
@@ -190,7 +197,7 @@ public class EventDAO
             {
                 String urlToQuery = manager.getApiEventsConnectionString();
                 urlToQuery += userParticipationPackage[0].getIsUserParticipating()?"/CancelParticipationToEvent":"/ParticipateToEvent";
-                HttpReturnPackage resultPackage = HttpMethodSetups.postOrPutMethodSetupAndPosting(urlToQuery,userParticipationPackage[0].getFormToSend(),null,true,false);
+                HttpReturnPackage resultPackage = HttpMethodSetups.postOrPutMethodSetupAndPosting(urlToQuery,userParticipationPackage[0].getFormToSend(),null,true,false,false);
                 userParticipationPackage[0].setResponseCode(resultPackage.getRequestResponseCode());
                 return userParticipationPackage[0];
             }
@@ -240,6 +247,43 @@ public class EventDAO
             else
             {
                 response.getSender().notifyDeleteFailure(response.getResponseCode());
+            }
+        }
+    }
+
+    private class GetEventsAroundPoint extends AsyncTask<EventSearchPackage,Void,EventSearchPackage>
+    {
+        protected EventSearchPackage doInBackground(EventSearchPackage ... eventSearchPackage)
+        {
+            try
+            {
+                String urlToQuery = manager.getApiEventsConnectionString()+"/GetEventsAroundPoint";
+                EventScanDTO responseModel = new EventScanDTO();
+                HttpReturnPackage resultPackage = HttpMethodSetups.postOrPutMethodSetupAndPosting(urlToQuery,eventSearchPackage[0].getScanForm(),responseModel,true,true,true);
+                eventSearchPackage[0].setResponseCode(resultPackage.getRequestResponseCode());
+                if(ResponseCodeChecker.checkWhetherTaskSucceeded(resultPackage.getRequestResponseCode()))
+                {
+                    ArrayList<EventScanDTO> response = (ArrayList<EventScanDTO>) resultPackage.getObjectResult();
+                    ArrayList<Event> parsedEventList = EventService.eventScanResultToEventArrayList(response,eventSearchPackage[0].getCategoriesFilters());
+                    eventSearchPackage[0].setScanResult(parsedEventList);
+                }
+                return eventSearchPackage[0];
+            }
+            catch (Exception e)
+            {
+                eventSearchPackage[0].setResponseCode(0);
+                return eventSearchPackage[0];
+            }
+        }
+        protected void onPostExecute(EventSearchPackage response)
+        {
+            if(ResponseCodeChecker.checkWhetherTaskSucceeded(response.getResponseCode()))
+            {
+                response.getSender().notifyEventScanSuccess(response);
+            }
+            else
+            {
+                response.getSender().notifyEventScanFailure(response.getResponseCode());
             }
         }
     }

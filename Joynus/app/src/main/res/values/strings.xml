@@ -40,7 +40,7 @@
 
     <string name="error_no_internet">"Il semble que vous ne soyez pas connecté à internet. Veuillez vérifier votre connexion à internet"</string>
     <string name="error_authentication">Session perdue. Veuillez relancer l\'application et réessayer de vous connecter.</string>
-    <string name="error_unidentified">Une erreur de transmission s\'est produite. Essayez de relancer l'application.</string>
+    <string name="error_unidentified">Une erreur de transmission s\'est produite. Vérifiez votre connection a internet ou essayez de relancer l'application.</string>
     <string name="error_not_found">L\'élément sur lequel vous avez cliqué est introuvable.</string>
 
     <string name="authentication_failed">Echec de l\'authentification.</string>

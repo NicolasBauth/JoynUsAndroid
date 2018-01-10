@@ -96,7 +96,7 @@ public class EventDescriptionActivity extends BaseActivity {
                 userParticipationPackage.setIsUserParticipating(isUserParticipating);
                 EventParticipationForm formToSend = new EventParticipationForm();
                 formToSend.setEventId(eventToDisplay.getDbId());
-                formToSend.setUsername(eventToDisplay.getCreatorUsername());
+                formToSend.setUsername(LoginActivity.getCurrentApplicationUser().getUsername());
                 userParticipationPackage.setFormToSend(formToSend);
                 userParticipationPackage.setEventDescriptionActivitySender(EventDescriptionActivity.this);
                 eventDAO.subscribeOrUnsubscribe(userParticipationPackage);

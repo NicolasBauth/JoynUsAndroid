@@ -16,6 +16,7 @@ import dtomodels.eventDTO.EventScanDTO;
 import dtomodels.eventDTO.EventShortDTO;
 import model.Event;
 import service.EventService;
+import taskmodels.CreateEventPackage;
 import taskmodels.DeleteEventPackage;
 import taskmodels.EventDetailsPackage;
 import taskmodels.EventListingPackage;
@@ -67,6 +68,10 @@ public class EventDAO
     public void getEventsAroundPoint(EventSearchPackage eventSearchPackage)
     {
         new GetEventsAroundPoint().execute(eventSearchPackage);
+    }
+    public void createEvent(CreateEventPackage createEventPackage)
+    {
+
     }
     private class GetEventListing extends AsyncTask<EventListingPackage,Void,EventListingPackage>
     {

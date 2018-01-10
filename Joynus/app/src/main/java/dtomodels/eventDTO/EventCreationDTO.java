@@ -6,95 +6,95 @@ import java.util.Date;
 
 public class EventCreationDTO
 {
-    private String title;
-    private double longitude;
-    private double latitude;
-    private String address;
-    private Date date;
-    private String description;
-    private ArrayList<Long> categoriesId;
-    private String facebookUrl;
-    private ArrayList<Long> tagsId;
-    private String creatorUsername;
+    private String Title;
+    private double Longitude;
+    private double Latitude;
+    private String Address;
+    private Date Date;
+    private String Description;
+    private ArrayList<Long> CategoriesId;
+    private String FacebookUrl;
+    private ArrayList<Long> TagsId;
+    private String CreatorUsername;
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     public void setLongitude(double longitude) {
-        this.longitude = longitude;
+        this.Longitude = longitude;
     }
 
     public void setLatitude(double latitude) {
-        this.latitude = latitude;
+        this.Latitude = latitude;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.Address = address;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.Date = date;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.Description = description;
     }
 
     public void setCategoriesId(ArrayList<Long> categoriesId) {
-        this.categoriesId = categoriesId;
+        this.CategoriesId = categoriesId;
     }
 
     public void setFacebookUrl(String facebookUrl) {
-        this.facebookUrl = facebookUrl;
+        this.FacebookUrl = facebookUrl;
     }
 
     public void setTagsId(ArrayList<Long> tagsId) {
-        this.tagsId = tagsId;
+        this.TagsId = tagsId;
     }
 
     public void setCreatorUsername(String creatorUsername) {
-        this.creatorUsername = creatorUsername;
+        this.CreatorUsername = creatorUsername;
     }
 
     public String getTitle() {
 
-        return title;
+        return Title;
     }
 
     public double getLongitude() {
-        return longitude;
+        return Longitude;
     }
 
     public double getLatitude() {
-        return latitude;
+        return Latitude;
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
     public Date getDate() {
-        return date;
+        return Date;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public ArrayList<Long> getCategoriesId() {
-        return categoriesId;
+        return CategoriesId;
     }
 
     public String getFacebookUrl() {
-        return facebookUrl;
+        return FacebookUrl;
     }
 
     public ArrayList<Long> getTagsId() {
-        return tagsId;
+        return TagsId;
     }
 
     public String getCreatorUsername() {
-        return creatorUsername;
+        return CreatorUsername;
     }
 }

@@ -34,9 +34,9 @@ public class RegisterActivity extends AppCompatActivity
     private EditText editDate;
     private Context context = this;
     private UserDAO userDAO;
-    String dateFormat = "dd.MM.yyyy";
-    SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.FRENCH);
-    DatePickerDialog.OnDateSetListener date;
+    private String dateFormat = "dd.MM.yyyy";
+    private SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.FRENCH);
+    private DatePickerDialog.OnDateSetListener date;
     private Calendar selectedDate = Calendar.getInstance();
     protected void onCreate(Bundle savedInstanceState)
     {

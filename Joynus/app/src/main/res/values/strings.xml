@@ -95,4 +95,22 @@
     <string name="event_description_no_facebook_event">Il n\'existe pas d\'évènement Facebook associé à cet évènement</string>
     <string name="event_description_event_deleted_successfully">Suppression de l\'évènement réussie</string>
 
+    <string name="create_event_title">Titre</string>
+    <string name="create_event_place">Lieu</string>
+    <string name="create_event_locate">Localisez!</string>
+    <string name="create_event_date">Date</string>
+    <string name="create_event_hour">Heure</string>
+    <string name="create_event_description">Description</string>
+    <string name="create_event_facebook_link">Lien Facebook</string>
+    <string name="create_event_address_check">Vérification d\'adresse</string>
+    <string name="create_event_no_address">Pas d\'adresse</string>
+    <string name="create_event_create_event">Créer l\'évènement</string>
+
+    <string name="create_event_error_title_length">Erreur : le titre de votre évènement doit faire plus de 4 caractères et moins de 80 caractères</string>
+    <string name="create_event_error_not_located">Erreur : votre évènement n\'est pas géolocalisé</string>
+    <string name="create_event_error_past_date">Erreur : la date et l\'heure d\'organisation de votre évènement sont dans le passé</string>
+    <string name="create_event_error_future_date">Erreur: la date que vous avez spécifiée est trop loin dans le futur</string>
+    <string name="create_event_error_description_length">Erreur : la description doit faire plus de 10 caractères et moins de 1500</string>
+    <string name="create_event_error_no_category">Erreur : Veuillez cocher une catégorie au minimum.</string>
+    <string name="create_event_error_bad_facebook_link">Erreur: l\'URL facebook renseignée n\'est pas valide.</string>
 </resources>

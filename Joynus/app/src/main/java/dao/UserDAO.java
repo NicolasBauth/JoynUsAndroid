@@ -14,7 +14,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import controller.UserController;
 import dtomodels.categoryDTO.UpdateUserInterestForm;
 import dtomodels.userDTO.TokenPackage;
 import dtomodels.userDTO.UserProfileDTO;

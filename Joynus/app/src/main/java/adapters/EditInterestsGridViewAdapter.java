@@ -23,7 +23,7 @@ public class EditInterestsGridViewAdapter  extends InterestsGridViewAdapter
     public EditInterestsGridViewAdapter(Activity sender, ArrayList<Category> categoriesToDisplay)
     {
         super(sender,categoriesToDisplay);
-        this.checkedCategories = LoginActivity.getCurrentApplicationUser().getInterests();
+        this.checkedCategories = new ArrayList<>(LoginActivity.getCurrentApplicationUser().getInterests());
     }
 
 

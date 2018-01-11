@@ -35,6 +35,7 @@ public class EventDescriptionActivity extends BaseActivity {
     private GridView categoriesGridView;
     private TextView usersParticipatingTextView;
     private TextView creatorTextView;
+    private Button showOnMapButton;
     private Button subscribeButton;
     private Button facebookButton;
     private Button creatorProfileButton;
@@ -58,6 +59,7 @@ public class EventDescriptionActivity extends BaseActivity {
         facebookButton = (Button) findViewById(R.id.event_description_facebook_button);
         creatorProfileButton = (Button) findViewById(R.id.event_description_creator_profile_button);
         deleteEventButton = (Button) findViewById(R.id.event_description_deleteEvent_Button);
+        showOnMapButton = (Button) findViewById(R.id.event_description_see_map_button);
         userDAO = new UserDAO();
         eventDAO = new EventDAO();
         adapter = new InterestsGridViewAdapter(EventDescriptionActivity.this,eventToDisplay.getCategories());
@@ -82,8 +84,25 @@ public class EventDescriptionActivity extends BaseActivity {
         else {
             deleteEventButton.setOnClickListener(deleteEventButtonListener());
         }
+        showOnMapButton.setOnClickListener(showMapButtonListener());
     }
 
+    public View.OnClickListener showMapButtonListener()
+    {
+        View.OnClickListener listener = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent showOnMapIntent = new Intent(EventDescriptionActivity.this,ShowEventOnMapActivity.class);
+                showOnMapIntent.putExtra("eventLatitude",eventToDisplay.getLatitude());
+                showOnMapIntent.putExtra("eventLongitude",eventToDisplay.getLongitude());
+                showOnMapIntent.putExtra("eventTitle",eventToDisplay.getTitle());
+                startActivity(showOnMapIntent);
+            }
+        };
+        return listener;
+    }
     public View.OnClickListener subscribeButtonListener()
     {
         View.OnClickListener listener = new View.OnClickListener()
@@ -111,7 +130,7 @@ public class EventDescriptionActivity extends BaseActivity {
             @Override
             public void onClick(View v)
             {
-                if(eventToDisplay.getUrlFacebook() == null)
+                if(eventToDisplay.getUrlFacebook() == null || eventToDisplay.getUrlFacebook().equals(""))
                 {
                     ViewStaticMethods.displayMessage(getString(R.string.event_description_no_facebook_event));
                 }

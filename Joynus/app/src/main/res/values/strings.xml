@@ -78,6 +78,7 @@
     <string name="search_event_no_center_selected">Veuillez localiser le centre de scan sur la carte</string>
     <string name="search_event_no_radius_selected">Veuillez sélectionner un rayon de scan</string>
     <string name="search_event_no_event_found">Aucun évènement trouvé</string>
+    <string name="search_event_warning_location_necessary">Attention: il faut que vous localisiez le centre de scan pour pouvoir lancer la recherche.</string>
 
     <string name="event_list_detail">Détails de l\'évènement</string>
     <string name="event_list_no_selected_event">Veuillez d\'abord sélectionner un évènement avant d\'appuyer sur le bouton</string>
@@ -113,4 +114,9 @@
     <string name="create_event_error_description_length">Erreur : la description doit faire plus de 10 caractères et moins de 1500</string>
     <string name="create_event_error_no_category">Erreur : Veuillez cocher une catégorie au minimum.</string>
     <string name="create_event_error_bad_facebook_link">Erreur: l\'URL facebook renseignée n\'est pas valide.</string>
+    <string name="create_event_warning_not_located">Attention: localiser votre évènement est nécessaire pour pouvoir le créer.</string>
+    <string name="create_event_success">Evènement créé avec succès</string>
+
+    <string name="locate_event_error_no_location_selected">Veuillez appuyer à un endroit de la carte pour y définir la position de votre évènement</string>
+    <string name="locate_event_no_address">Pas d\'adresse</string>
 </resources>

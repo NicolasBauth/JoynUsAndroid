@@ -65,9 +65,20 @@ public class SearchEventActivity extends BaseActivity {
             }
         };
         selectRadiusSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
-        centerLatitude = 50.466649;
-        centerLongitude = 4.859927;
+        locateCenterButton.setOnClickListener(locateCenterClickListener());
         launchScanButton.setOnClickListener(scanButtonClickListener());
+    }
+    public View.OnClickListener locateCenterClickListener()
+    {
+        View.OnClickListener listener = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                Intent goToLocateActivityIntent = new Intent(SearchEventActivity.this,LocateActivity.class);
+                startActivityForResult(goToLocateActivityIntent,1);
+            }
+        };
+        return listener;
     }
     public View.OnClickListener scanButtonClickListener()
     {
@@ -76,7 +87,7 @@ public class SearchEventActivity extends BaseActivity {
             @Override
             public void onClick(View v)
             {
-                if(centerLatitude != null && centerLongitude != null)
+                if(centerLatitude != null && centerLongitude != null && centerLatitude!= 0 && centerLongitude!=0)
                 {
                     if(scanRadius == null || scanRadius == 0)
                     {
@@ -124,6 +135,19 @@ public class SearchEventActivity extends BaseActivity {
     {
         ViewStaticMethods.displayMessage(ResponseCodeChecker.getResponseCodeErrorMessage(responseCode));
         launchScanButton.setEnabled(true);
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                centerLatitude = data.getDoubleExtra("chosenLatitude",0);
+                centerLongitude = data.getDoubleExtra("chosenLongitude",0);
+            }
+            else
+            {
+                ViewStaticMethods.displayMessage(getString(R.string.create_event_warning_not_located));
+            }
+        }
     }
 
 

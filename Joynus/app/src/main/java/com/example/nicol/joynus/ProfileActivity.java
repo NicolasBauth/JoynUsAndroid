@@ -66,7 +66,6 @@ public class ProfileActivity extends BaseActivity {
 
                     Intent intent = new Intent(ProfileActivity.this, EditInterestActivity.class);
                     startActivity(intent);
-                    finish();
 
             }
         };

@@ -42,7 +42,18 @@
         <activity
             android:name=".EventDescriptionActivity"
             android:label="@string/app_name" />
-        <activity android:name=".LocateActivity"></activity>
+        <activity
+            android:name=".LocateActivity"
+            android:label="@string/app_name" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBcd2n0_dcAHOK6umQHifCcox2zrrh9SNc" />
+
+        <activity android:name=".ShowEventOnMapActivity"></activity>
     </application>
 
 </manifest>

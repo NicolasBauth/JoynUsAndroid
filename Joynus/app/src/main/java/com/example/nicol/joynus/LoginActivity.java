@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.content.Context;
-
-import controller.UserController;
 import dao.UserDAO;
 import dtomodels.userDTO.UserCredentialsDTO;
 import model.User;

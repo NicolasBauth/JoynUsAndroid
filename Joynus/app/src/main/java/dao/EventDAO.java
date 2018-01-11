@@ -5,12 +5,14 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
 import com.example.nicol.joynus.LoginActivity;
+import com.google.android.gms.common.api.Response;
 
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
+import dtomodels.eventDTO.EventCreationDTO;
 import dtomodels.eventDTO.EventPresentationDTO;
 import dtomodels.eventDTO.EventScanDTO;
 import dtomodels.eventDTO.EventShortDTO;
@@ -71,7 +73,7 @@ public class EventDAO
     }
     public void createEvent(CreateEventPackage createEventPackage)
     {
-
+        new CreateEvent().execute(createEventPackage);
     }
     private class GetEventListing extends AsyncTask<EventListingPackage,Void,EventListingPackage>
     {
@@ -289,6 +291,37 @@ public class EventDAO
             else
             {
                 response.getSender().notifyEventScanFailure(response.getResponseCode());
+            }
+        }
+    }
+
+    private class CreateEvent extends AsyncTask<CreateEventPackage,Void,CreateEventPackage>
+    {
+        protected CreateEventPackage doInBackground(CreateEventPackage... createEventPackage)
+        {
+            try
+            {
+                String urlToQuery = manager.getApiEventsConnectionString()+"/PostEvent";
+                EventCreationDTO responseModel = new EventCreationDTO();
+                HttpReturnPackage resultPackage = HttpMethodSetups.postOrPutMethodSetupAndPosting(urlToQuery,createEventPackage[0].getForm(),responseModel,true,true,false);
+                createEventPackage[0].setResponseCode(resultPackage.getRequestResponseCode());
+                return createEventPackage[0];
+            }
+            catch(Exception e)
+            {
+                createEventPackage[0].setResponseCode(0);
+                return createEventPackage[0];
+            }
+        }
+        protected void onPostExecute(CreateEventPackage response)
+        {
+            if(ResponseCodeChecker.checkWhetherTaskSucceeded(response.getResponseCode()))
+            {
+                response.getSender().notifyCreationSuccess();
+            }
+            else
+            {
+                response.getSender().notifyCreationFailure(response.getResponseCode());
             }
         }
     }

@@ -3,6 +3,7 @@ package com.example.nicol.joynus;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import dtomodels.eventDTO.EventCreationDTO;
 import model.Category;
 import service.CategoryService;
 import taskmodels.CreateEventPackage;
+import utility.ResponseCodeChecker;
 
 public class CreateEventActivity extends BaseActivity {
 
@@ -113,6 +115,14 @@ public class CreateEventActivity extends BaseActivity {
                 new TimePickerDialog(context,timeSetListener,chosenDate.get(Calendar.HOUR_OF_DAY),chosenDate.get(Calendar.MINUTE), true).show();
             }
         });
+
+        locateEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToLocateActivityIntent = new Intent(CreateEventActivity.this,LocateActivity.class);
+                startActivityForResult(goToLocateActivityIntent,1);
+            }
+        });
     }
     public View.OnClickListener createEventListener()
     {
@@ -130,9 +140,6 @@ public class CreateEventActivity extends BaseActivity {
     public void createEvent()
     {
         eventTitle = eventTitleInput.getText().toString();
-        eventLatitude = 50.466649;
-        eventLongitude = 4.859927;
-        eventAddress = addressTextView.getText().toString();
         eventCategories = adapter.getCheckedCategories();
         eventDescription = descriptionInput.getText().toString();
         int eventYear = chosenDate.get(Calendar.YEAR);
@@ -158,10 +165,13 @@ public class CreateEventActivity extends BaseActivity {
             formToSend.setFacebookUrl(eventFacebookLink);
             formToSend.setLatitude(eventLatitude);
             formToSend.setLongitude(eventLongitude);
-            formToSend.setTagsId(null);
+            ArrayList<Long> tagsId = new ArrayList<Long>();
+            tagsId.add((long)1);
+            formToSend.setTagsId(tagsId);
             formToSend.setTitle(eventTitle);
             CreateEventPackage createEventPackage = new CreateEventPackage();
             createEventPackage.setForm(formToSend);
+            createEventPackage.setSender(CreateEventActivity.this);
             eventDAO.createEvent(createEventPackage);
         }
     }
@@ -202,7 +212,7 @@ public class CreateEventActivity extends BaseActivity {
 
     public boolean longitudeAndLatitudeCheck()
     {
-        if(eventLongitude == null||eventLatitude == null)
+        if(eventLongitude == null||eventLatitude == null ||eventLongitude == 0||eventLatitude == 0)
         {
             ViewStaticMethods.displayMessage(getString(R.string.create_event_error_not_located));
             return false;
@@ -263,6 +273,34 @@ public class CreateEventActivity extends BaseActivity {
             return false;
         }
         return true;
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                 eventLatitude = data.getDoubleExtra("chosenLatitude",0);
+                 eventLongitude = data.getDoubleExtra("chosenLongitude",0);
+                 eventAddress = data.getStringExtra("chosenAddress");
+                 addressTextView.setText(eventAddress);
+            }
+            else
+            {
+                ViewStaticMethods.displayMessage(getString(R.string.create_event_warning_not_located));
+            }
+        }
+    }
+
+    public void notifyCreationSuccess()
+    {
+        ViewStaticMethods.displayMessage(getString(R.string.create_event_success));
+        finish();
+    }
+
+    public void notifyCreationFailure(int responseCode)
+    {
+        String message = ResponseCodeChecker.getResponseCodeErrorMessage(responseCode);
+        ViewStaticMethods.displayMessage(message);
+        createEventButton.setEnabled(true);
     }
 
 }
